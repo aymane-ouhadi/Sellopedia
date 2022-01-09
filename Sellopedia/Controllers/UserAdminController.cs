@@ -25,7 +25,9 @@ namespace Sellopedia.Controllers
         [Authorize(Roles = "User")]
         public ActionResult UserPage()
         {
-            return View();
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return View(user);
         }
         
 
@@ -35,8 +37,8 @@ namespace Sellopedia.Controllers
             //UserManager<ApplicationUser> UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             //var user = UserManager.FindById(User.Identity.GetUserId());
 
-            //string currentUserId = User.Identity.GetUserId();
-            //var user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
             ViewBag.product = user.Products.ToList();
             return View(user);
         }

@@ -13,6 +13,7 @@ namespace Sellopedia.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        //--------- User
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Gender Gender { get; set; }
@@ -20,13 +21,14 @@ namespace Sellopedia.Models
         public string Country { get; set; }
         public AccountType AccountType { get; set; }
         public string ProfileImage { get; set; }
-        // if -LockedAccount- not working -> add -isValid-
 
         //------- Navigation Properties
         //--- Product
         public virtual ICollection<Product> Products { get; set; }
-
+        //--- Order
         public virtual ICollection<Order> Orders { get; set; }
+        //--- Review
+        public virtual ICollection<Review> Reviews { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
