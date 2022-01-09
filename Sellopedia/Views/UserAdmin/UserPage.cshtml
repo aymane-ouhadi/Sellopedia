@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<Sellopedia.Models.ApplicationUser>
+﻿@model Sellopedia.Models.ApplicationUser
 
 @{
     ViewBag.Title = "UserPage";
@@ -7,7 +6,4 @@
 
 <h2>UserPage</h2>
 
-@foreach(var user in Model) 
-{
-    @Html.DisplayFor(modelItem => modelItem.Fir)
-}
+@Html.DisplayFor(m => m.FirstName)

@@ -38,6 +38,12 @@ namespace Sellopedia.Models
         //--- Product Buyers
         public virtual ICollection<Order> Orders { get; set; }
 
+        //--- Product Reviews
+        public virtual ICollection<Review> Reviews { get; set; }
+
+        //--- Product Images
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
+
         public Product()
         {
             DiscountPrice = 0;

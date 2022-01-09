@@ -9,7 +9,7 @@ namespace Sellopedia.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Sellopedia.Models.ApplicationDbContext";
         }
 

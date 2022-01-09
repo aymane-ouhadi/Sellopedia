@@ -207,13 +207,24 @@
     <Compile Include="Migrations\202201081658001_Added Profile Image .Designer.cs">
       <DependentUpon>202201081658001_Added Profile Image .cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201091716543_Review.cs" />
+    <Compile Include="Migrations\202201091716543_Review.Designer.cs">
+      <DependentUpon>202201091716543_Review.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201091759525_Product-Image.cs" />
+    <Compile Include="Migrations\202201091759525_Product-Image.Designer.cs">
+      <DependentUpon>202201091759525_Product-Image.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\EnumerationsClass.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductImage.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResUser.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -466,6 +477,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201081658001_Added Profile Image .resx">
       <DependentUpon>202201081658001_Added Profile Image .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201091716543_Review.resx">
+      <DependentUpon>202201091716543_Review.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201091759525_Product-Image.resx">
+      <DependentUpon>202201091759525_Product-Image.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResUser.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
