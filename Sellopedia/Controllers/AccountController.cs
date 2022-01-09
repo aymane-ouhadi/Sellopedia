@@ -153,24 +153,25 @@ namespace Sellopedia.Controllers
         {
             if (ModelState.IsValid)
             {
-                string ImagePath = null;
-                string FileName = null;
-                if (model.ProfileImage != null)
-                {
-                    //Setting up the file name ([Date]_[filename].[extension])
-                    FileName = Path.GetFileNameWithoutExtension(model.ProfileImage.FileName);
-                    string FileExtension = Path.GetExtension(model.ProfileImage.FileName);
-                    FileName = DateTime.Now.ToString("yyyyMMdd") + "_" + FileName.Trim() + FileExtension;
+                //string ImagePath = null;
+                //string FileName = null;
+                //if (model.ProfileImage != null)
+                //{
+                //    //Setting up the file name ([Date]_[filename].[extension])
+                //    FileName = Path.GetFileNameWithoutExtension(model.ProfileImage.FileName);
+                //    string FileExtension = Path.GetExtension(model.ProfileImage.FileName);
+                //    FileName = DateTime.Now.ToString("yyyyMMdd") + "_" + FileName.Trim() + FileExtension;
 
-                    //Defining the upload path, this will return : [(ProjectPath)/(ProfileImagesPath)]
-                    //ConfigurationManager.AppSettings["ProfileImagesPath"] : the path to the profile images (You'll find it in Web.config : <add key="ProfileImagesPath" value="Storage/ProfileImages"/>)
-                    string UploadPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ProfileImagesPath"]);
+                //    //Defining the upload path, this will return : [(ProjectPath)/(ProfileImagesPath)]
+                //    //ConfigurationManager.AppSettings["ProfileImagesPath"] : the path to the profile images (You'll find it in Web.config : <add key="ProfileImagesPath" value="Storage/ProfileImages"/>)
+                //    string UploadPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ProfileImagesPath"]);
 
-                    ImagePath = UploadPath + FileName;
+                //    ImagePath = UploadPath + FileName;
 
-                    model.ProfileImage.SaveAs(ImagePath);
+                //    model.ProfileImage.SaveAs(ImagePath);
 
-                }
+                //}
+
                 var user = new ApplicationUser {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
@@ -180,8 +181,8 @@ namespace Sellopedia.Controllers
                     Country = model.Country,
                     Gender = model.Gender,
                     AccountType = Sellopedia.Models.EnumerationsClass.AccountType.Particular,
-                    ProfileImage = Path.Combine("~/", ConfigurationManager.AppSettings["ProfileImagesPath"], FileName)
-            };
+                    ProfileImage = "~/Storage/ProfileImages/default_user.png"
+                };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

@@ -3,94 +3,192 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+
+<!-- ============================ OLD REGISTER  ================================= -->
+@*<h2>@ViewBag.Title.</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Sellopedia.Models.EnumerationsClass.Gender))), "Select Gender", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Country, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ProfileImage, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.ProfileImage, new { @class = "form-control", type = "file" })
+                @Html.ValidationMessageFor(m => m.ProfileImage, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+    }*@
+
+<!-- ============================ OLD REGISTER END ================================= -->
+
+
+
+
+<!-- ============================ COMPONENT REGISTER  ================================= -->
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+        <article class="card-body">
+            <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+            <form>
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label>First name</label>
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="col form-group">
+                        <label>Last name</label>
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                </div> <!-- form-row end.// -->
+                <div class="form-group">
+                    <label>Email</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div> <!-- form-group end.// -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                <div class="form-group">
+                    @*<input class="custom-control-input" checked="" type="radio" name="gender" value="option1">*@
+                    @foreach (var value in Enum.GetValues(typeof(Sellopedia.Models.EnumerationsClass.Gender)))
+                    {
+                        <label class="custom-control custom-radio custom-control-inline">
+                            @Html.RadioButtonFor(m => m.Gender, value, new { @class = "custom-control-input" })
+                            <span class="custom-control-label"> @value </span>
+                        </label>
+                    }
+                    @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                </div> <!-- form-group end.// -->
 
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>City</label>
+                        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @*@Html.EnumDropDownListFor(m => m.Gender, "Select Gender", new { @class = "form-control" })*@
-            @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Sellopedia.Models.EnumerationsClass.Gender))), "Select Gender", htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label>Country</label>
+                        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.City,    new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                </div> <!-- form-row.// -->
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Create Password</label>
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Country, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                    <div class="form-group col-md-6">
+                        <label>Repeat password</label>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
+                </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                @*<div class="form-row">
+                    <div class="form-group col-md-9">
+                        <label>Profil Image</label>
+                        @Html.TextBoxFor(m => m.ProfileImage, new { @class = "form-control", type = "file" })
+                    </div>
+                </div>*@
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.ProfileImage, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.ProfileImage, new { @class = "form-control", type = "file" })
-            @Html.ValidationMessageFor(m => m.ProfileImage, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Register</button>
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" checked=""> <div class="custom-control-label"> I agree with<a href="#"> terms and contitions</a>  </div> </label>
+                </div> <!-- form-group end.// -->
+            </form>
+        </article><!-- card-body.// -->
+    </div> <!-- card.// -->
+    <p class="text-center mt-4">Have an account ? <a href="@Url.Action("Login", "Account")">Log In</a></p>
+    <br>
+    <br>
 }
+
+<!-- ============================ COMPONENT REGISTER END  ================================= -->
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

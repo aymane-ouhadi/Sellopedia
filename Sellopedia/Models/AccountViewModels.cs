@@ -99,9 +99,9 @@ namespace Sellopedia.Models
         [Required(ErrorMessageResourceName = "CountryRequired", ErrorMessageResourceType = typeof(Resources.ResUser))]
         public string Country { get; set; }
 
-        [DataType(DataType.Upload)]
-        [Display(Name = "Profile Image")]
-        public HttpPostedFileBase ProfileImage { get; set; }
+        //[DataType(DataType.Upload)]
+        //[Display(Name = "Profile Image")]
+        //public HttpPostedFileBase ProfileImage { get; set; }
     }
 
     public class ResetPasswordViewModel
