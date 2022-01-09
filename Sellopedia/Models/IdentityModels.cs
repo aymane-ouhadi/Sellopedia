@@ -57,6 +57,10 @@ namespace Sellopedia.Models
 
         public System.Data.Entity.DbSet<Sellopedia.Models.Order> Orders { get; set; }
 
+        public System.Data.Entity.DbSet<Sellopedia.Models.Review> Reviews { get; set; }
+
+        public System.Data.Entity.DbSet<Sellopedia.Models.ProductImage> ProductImages { get; set; }
+
         //public System.Data.Entity.DbSet<Sellopedia.Models.ApplicationUser> ApplicationUsers { get; set; }
 
         //public System.Data.Entity.DbSet<Sellopedia.Models.ApplicationUser> ApplicationUsers { get; set; }

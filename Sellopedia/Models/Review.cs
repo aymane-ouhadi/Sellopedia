@@ -15,7 +15,7 @@ namespace Sellopedia.Models
         [Key, Column(Order = 1)]
         public int ProductId { get; set; }
 
-        //[Range(0,5)]
+        [Range(0,5)]
         public int Score { get; set; }
         //[StringLength(300)]
         public string Message { get; set; }
