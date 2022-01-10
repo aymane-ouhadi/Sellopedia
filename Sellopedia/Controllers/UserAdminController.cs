@@ -19,9 +19,10 @@ namespace Sellopedia.Controllers
         //{
         //        string currentUserId = User.Identity.GetUserId();
         //        user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            
+
         //}
 
+        // ------------ Mohamed
         [Authorize(Roles = "User")]
         public ActionResult UserPage()
         {
@@ -69,6 +70,43 @@ namespace Sellopedia.Controllers
             return View(db.Orders.ToList());
         }
 
+        //--------------------------------//
+        [Authorize]
+        public ActionResult UserOwnerProducts()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return View(db.Products.ToList());
+        }
+
+        [Authorize]
+        public ActionResult UserCreateProduct(Product model)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            ViewBag.Categories = new SelectList(db.Categories, "Id", "Name");
+            Category c1 = db.Categories.ToArray()[0];
+            
+            if(ModelState.IsValid)
+            {
+                Product product = model;
+                product.UserId = user.Id;
+                product.Category = c1;
+                db.Products.Add(product);
+                db.SaveChanges();
+            }
+
+            return View();
+        }
+
+
+
+
+
+
+
+        // ------------ Aymane
         public ActionResult LeaveReview(int id)
         {
             string currentUserId = User.Identity.GetUserId();

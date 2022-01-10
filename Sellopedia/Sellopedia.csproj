@@ -445,6 +445,8 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\UserAdmin\CreateOrder.cshtml" />
     <Content Include="Views\UserAdmin\LeaveReview.cshtml" />
+    <Content Include="Views\UserAdmin\UserOwnerProducts.cshtml" />
+    <Content Include="Views\UserAdmin\UserCreateProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
