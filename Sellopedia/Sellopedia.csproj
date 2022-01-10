@@ -215,13 +215,9 @@
     <Compile Include="Migrations\202201091759525_Product-Image.Designer.cs">
       <DependentUpon>202201091759525_Product-Image.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202201101145060_Category.cs" />
-    <Compile Include="Migrations\202201101145060_Category.Designer.cs">
-      <DependentUpon>202201101145060_Category.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202201101206091_Category-Product-Navigation.cs" />
-    <Compile Include="Migrations\202201101206091_Category-Product-Navigation.Designer.cs">
-      <DependentUpon>202201101206091_Category-Product-Navigation.cs</DependentUpon>
+    <Compile Include="Migrations\202201101301451_Added category and set the connection with the product.cs" />
+    <Compile Include="Migrations\202201101301451_Added category and set the connection with the product.Designer.cs">
+      <DependentUpon>202201101301451_Added category and set the connection with the product.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -496,11 +492,8 @@
     <EmbeddedResource Include="Migrations\202201091759525_Product-Image.resx">
       <DependentUpon>202201091759525_Product-Image.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201101145060_Category.resx">
-      <DependentUpon>202201101145060_Category.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202201101206091_Category-Product-Navigation.resx">
-      <DependentUpon>202201101206091_Category-Product-Navigation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202201101301451_Added category and set the connection with the product.resx">
+      <DependentUpon>202201101301451_Added category and set the connection with the product.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResUser.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

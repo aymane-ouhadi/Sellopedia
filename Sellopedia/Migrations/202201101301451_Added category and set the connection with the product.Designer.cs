@@ -7,13 +7,13 @@ namespace Sellopedia.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CategoryProductNavigation : IMigrationMetadata
+    public sealed partial class Addedcategoryandsettheconnectionwiththeproduct : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CategoryProductNavigation));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Addedcategoryandsettheconnectionwiththeproduct));
         
         string IMigrationMetadata.Id
         {
-            get { return "202201101206091_Category-Product-Navigation"; }
+            get { return "202201101301451_Added category and set the connection with the product"; }
         }
         
         string IMigrationMetadata.Source

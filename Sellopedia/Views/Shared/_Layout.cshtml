@@ -142,8 +142,16 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
-                            <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Log in</a>
+                            @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                            {
+                                <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
+                                <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Log in</a>
+                            }
+                            @*else
+                            {
+                                <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Hello @System.Web.HttpContext.Current.User.Identity.Name</a>
+                                <a href="@Url.Action("Logoff", "Account")" class="nav-item nav-link">Log off</a>
+                            }*@
                         </div>
                     </div>
                 </nav>
