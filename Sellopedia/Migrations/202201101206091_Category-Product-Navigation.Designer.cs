@@ -7,13 +7,13 @@ namespace Sellopedia.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Fixingtheorder : IMigrationMetadata
+    public sealed partial class CategoryProductNavigation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Fixingtheorder));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CategoryProductNavigation));
         
         string IMigrationMetadata.Id
         {
-            get { return "202201092328324_Fixing the order"; }
+            get { return "202201101206091_Category-Product-Navigation"; }
         }
         
         string IMigrationMetadata.Source

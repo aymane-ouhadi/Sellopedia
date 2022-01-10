@@ -9,15 +9,15 @@ namespace Sellopedia.Models
     public class Category
     {
         [Key]
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string CategoryName { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public string CategoryIcon { get; set; }
+        public string Icon { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
     }
 }
