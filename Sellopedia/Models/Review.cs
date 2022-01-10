@@ -17,7 +17,8 @@ namespace Sellopedia.Models
 
         [Range(0,5)]
         public int Score { get; set; }
-        //[StringLength(300)]
+
+        [StringLength(300)]
         public string Message { get; set; }
 
         public virtual ApplicationUser User { get; set; }

@@ -66,7 +66,26 @@ namespace Sellopedia.Controllers
             };
             db.Orders.Add(order);
             db.SaveChanges();
-            return View();
+            return View(db.Orders.ToList());
+        }
+
+        public ActionResult LeaveReview(int id)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            Review review = new Review()
+            {
+                UserId = user.Id,
+                ProductId = id,
+                Score = 4,
+                Message = "Great product dude"
+            };
+
+            db.Reviews.Add(review);
+            db.SaveChanges();
+
+            return View(db.Reviews.ToList());
         }
     }
 }
