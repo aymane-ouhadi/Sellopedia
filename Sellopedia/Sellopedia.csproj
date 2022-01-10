@@ -219,6 +219,14 @@
     <Compile Include="Migrations\202201101301451_Added category and set the connection with the product.Designer.cs">
       <DependentUpon>202201101301451_Added category and set the connection with the product.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201102148300_Cart.cs" />
+    <Compile Include="Migrations\202201102148300_Cart.Designer.cs">
+      <DependentUpon>202201102148300_Cart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201102149283_Cart-Order-Navigation.cs" />
+    <Compile Include="Migrations\202201102149283_Cart-Order-Navigation.Designer.cs">
+      <DependentUpon>202201102149283_Cart-Order-Navigation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -230,6 +238,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ResUser.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -441,8 +450,9 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\UserAdmin\CreateOrder.cshtml" />
     <Content Include="Views\UserAdmin\LeaveReview.cshtml" />
-    <Content Include="Views\UserAdmin\UserOwnerProducts.cshtml" />
     <Content Include="Views\UserAdmin\UserCreateProduct.cshtml" />
+    <Content Include="Views\UserAdmin\UserOwnerProducts.cshtml" />
+    <Content Include="Views\UserAdmin\ImageUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -494,6 +504,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201101301451_Added category and set the connection with the product.resx">
       <DependentUpon>202201101301451_Added category and set the connection with the product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201102148300_Cart.resx">
+      <DependentUpon>202201102148300_Cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201102149283_Cart-Order-Navigation.resx">
+      <DependentUpon>202201102149283_Cart-Order-Navigation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResUser.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

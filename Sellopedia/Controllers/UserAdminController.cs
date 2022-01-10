@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Sellopedia.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -76,32 +78,78 @@ namespace Sellopedia.Controllers
         {
             string currentUserId = User.Identity.GetUserId();
             user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            return View(db.Products.ToList());
+            ViewBag.User = user;
+            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.productCount = user.Products.Count;
+            return View(user.Products.ToList());
         }
 
         [Authorize]
-        public ActionResult UserCreateProduct(Product model)
+        public ActionResult UserCreateProduct(Product model/*, HttpPostedFileBase images*/)
         {
             string currentUserId = User.Identity.GetUserId();
             user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
 
             ViewBag.Categories = new SelectList(db.Categories, "Id", "Name");
-            Category c1 = db.Categories.ToArray()[0];
-            
-            if(ModelState.IsValid)
+            ViewBag.User = user;
+            //ViewBag.Images = model.ProductImages;
+
+            //string ImagePath = null;
+            //string FileName = null;
+            //if (images != null)
+            //{
+            //    //Setting up the file name ([Date]_[filename].[extension])
+            //    FileName = Path.GetFileNameWithoutExtension(images.FileName);
+            //    string FileExtension = Path.GetExtension(images.FileName);
+            //    FileName = DateTime.Now.ToString("yyyyMMdd") + "_" + FileName.Trim() + FileExtension;
+            //    string UploadPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ProfileImagesPath"]);
+
+            //    ImagePath = UploadPath + FileName;
+
+            //    images.SaveAs(ImagePath);
+
+            //    Session["images"] = images.FileName;
+            //    return View("Index", "Home");
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //    Session["images"] = "Failed :\"(";
+            //    return View();
+            //}
+
+            if (ModelState.IsValid)
             {
                 Product product = model;
                 product.UserId = user.Id;
-                product.Category = c1;
                 db.Products.Add(product);
                 db.SaveChanges();
+                return View();
             }
 
-            return View();
+            return View(model);
         }
 
 
+        public ActionResult ImageUpload(Upload prodImg)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
 
+            ViewBag.Categories = new SelectList(db.Categories, "Id", "Name");
+            ViewBag.User = user;
+
+            if(ModelState.IsValid)
+            {
+                ViewBag.msg = "Success";
+            }
+            else
+            {
+                ViewBag.msg = "Failure";
+            }
+
+            return View(new Upload { Product = new Product(), Images = new List<ProductImage>() });
+        }
 
 
 
