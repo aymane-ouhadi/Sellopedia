@@ -35,6 +35,11 @@ namespace Sellopedia.Models
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
+        //--- Product Category
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Product Category { get; set; }
+
         //--- Product Buyers
         public virtual ICollection<Order> Orders { get; set; }
 
