@@ -453,6 +453,7 @@
     <Content Include="Views\UserAdmin\UserCreateProduct.cshtml" />
     <Content Include="Views\UserAdmin\UserOwnerProducts.cshtml" />
     <Content Include="Views\UserAdmin\ImageUpload.cshtml" />
+    <Content Include="Views\UserAdmin\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

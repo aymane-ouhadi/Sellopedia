@@ -63,5 +63,6 @@ namespace Sellopedia.Models
 
         public System.Data.Entity.DbSet<Sellopedia.Models.Category> Categories { get; set; }
 
+        //public System.Data.Entity.DbSet<Sellopedia.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

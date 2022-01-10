@@ -142,16 +142,23 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            @if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+                            @*<a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
+                                <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Log in</a>*@
+                            @if (Request.IsAuthenticated)
                             {
-                                <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
-                                <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Log in</a>
+                                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "d-inline-flex p-2" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @*@Html.ActionLink("Hello ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                                    <a class="nav-item nav-link" href="@Url.Action("EditProfile", "UserAdmin", routeValues : null)">Hello</a>
+                                    <a class="nav-item nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log Out</a>
+                                }
                             }
-                            @*else
+                            else
                             {
-                                <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Hello @System.Web.HttpContext.Current.User.Identity.Name</a>
-                                <a href="@Url.Action("Logoff", "Account")" class="nav-item nav-link">Log off</a>
-                            }*@
+                                <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Login</a>
+                                <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
+                            }
                         </div>
                     </div>
                 </nav>

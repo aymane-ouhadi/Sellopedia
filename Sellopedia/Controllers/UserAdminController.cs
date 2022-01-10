@@ -173,5 +173,16 @@ namespace Sellopedia.Controllers
 
             return View(db.Reviews.ToList());
         }
+
+
+        //-------------- Khalid 
+
+        [Authorize]
+        public ActionResult EditProfile()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            return View(user);
+        }
     }
 }
