@@ -3,7 +3,7 @@ namespace Sellopedia.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Category : DbMigration
+    public partial class Addedcategoryandsettheconnectionwiththeproduct : DbMigration
     {
         public override void Up()
         {
@@ -17,18 +17,18 @@ namespace Sellopedia.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            AddColumn("dbo.Products", "Category_Id", c => c.Int());
+            AddColumn("dbo.Products", "CategoryId", c => c.Int(nullable: false));
             AlterColumn("dbo.Reviews", "Message", c => c.String(maxLength: 300));
-            CreateIndex("dbo.Products", "Category_Id");
-            AddForeignKey("dbo.Products", "Category_Id", "dbo.Categories", "Id");
+            CreateIndex("dbo.Products", "CategoryId");
+            AddForeignKey("dbo.Products", "CategoryId", "dbo.Categories", "Id", cascadeDelete: true);
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Products", "Category_Id", "dbo.Categories");
-            DropIndex("dbo.Products", new[] { "Category_Id" });
+            DropForeignKey("dbo.Products", "CategoryId", "dbo.Categories");
+            DropIndex("dbo.Products", new[] { "CategoryId" });
             AlterColumn("dbo.Reviews", "Message", c => c.String());
-            DropColumn("dbo.Products", "Category_Id");
+            DropColumn("dbo.Products", "CategoryId");
             DropTable("dbo.Categories");
         }
     }
