@@ -259,7 +259,7 @@ namespace Sellopedia.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized string similar to Organisation Name.
         /// </summary>
         public static string UserName {
             get {

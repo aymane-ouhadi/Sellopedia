@@ -99,7 +99,7 @@
 
 <!-- ============================ COMPONENT REGISTER  ================================= -->
 
-@using (Html.BeginForm("Register", "Account", new { UserType = "Organisation" }, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", new { UserType = ViewBag.isParticular ? "Particular" : "Organisation" }, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="card mx-auto" style="max-width:520px; margin-top:40px;">

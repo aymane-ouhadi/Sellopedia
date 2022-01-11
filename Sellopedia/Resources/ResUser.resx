@@ -184,7 +184,7 @@
     <value>Profile Image</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>Username</value>
+    <value>Organisation Name</value>
   </data>
   <data name="UserNameRequired" xml:space="preserve">
     <value>UserNameis required</value>

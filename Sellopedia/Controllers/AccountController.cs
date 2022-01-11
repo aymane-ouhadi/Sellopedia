@@ -168,7 +168,7 @@ namespace Sellopedia.Controllers
             Sellopedia.Models.EnumerationsClass.AccountType AccountType;
             if (UserType == "Particular")
             {
-                //model.UserName = "";
+                model.UserName = model.Email;
                 ModelState["UserName"].Errors.Clear();
                 AccountType = Sellopedia.Models.EnumerationsClass.AccountType.Particular;
 
@@ -257,6 +257,10 @@ namespace Sellopedia.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -293,6 +297,10 @@ namespace Sellopedia.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
