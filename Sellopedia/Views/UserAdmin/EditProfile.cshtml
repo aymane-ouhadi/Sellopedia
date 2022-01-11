@@ -124,6 +124,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProfileImage, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <img src="@Model.ProfileImage.ToString()" width="300" height="300" />
                 @Html.EditorFor(model => model.ProfileImage, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })
             </div>

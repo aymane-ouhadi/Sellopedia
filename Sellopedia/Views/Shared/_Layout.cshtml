@@ -150,13 +150,25 @@
                                 {
                                     @Html.AntiForgeryToken()
                                     @*@Html.ActionLink("Hello ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
-                                    <a class="nav-item nav-link" href="@Url.Action("EditProfile", "UserAdmin", routeValues : null)">Hello</a>
+                                    <a class="nav-item nav-link" href="@Url.Action("EditProfile", "User", routeValues : null)">Hello</a>
                                     <a class="nav-item nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log Out</a>
                                 }
                             }
                             else
                             {
                                 <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Login</a>
+                                
+                                <div class="dropdown show">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Register
+                                    </a>
+
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="@Url.Action("Register", "Account", new { UserType = "Particular" })">Particular</a>
+                                        <a class="dropdown-item" href="@Url.Action("Register", "Account", new { UserType = "Organisation" })">Organisation</a>
+                                    </div>
+                                </div>
+
                                 <a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
                             }
                         </div>

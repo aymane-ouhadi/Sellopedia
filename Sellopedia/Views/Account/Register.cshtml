@@ -99,7 +99,7 @@
 
 <!-- ============================ COMPONENT REGISTER  ================================= -->
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", new { UserType = "Organisation" }, FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
@@ -107,17 +107,29 @@
             <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
             <form>
                 <div class="form-row">
-                    <div class="col form-group">
-                        <label>First name</label>
-                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
-                    </div> <!-- form-group end.// -->
+                    @if (ViewBag.isParticular)
+                    {
+                        <div class="col form-group">
+                            <label>First name</label>
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        </div> <!-- form-group end.// -->
 
-                    <div class="col form-group">
-                        <label>Last name</label>
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
-                    </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Last name</label>
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        </div> <!-- form-group end.// -->
+                    }
+                    else
+                    {
+                        <div class="col form-group">
+                            <label>User name</label>
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div> <!-- form-group end.// -->
+                    }
+
 
                 </div> <!-- form-row end.// -->
                 <div class="form-group">
@@ -127,17 +139,20 @@
                     <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                 </div> <!-- form-group end.// -->
 
-                <div class="form-group">
-                    @*<input class="custom-control-input" checked="" type="radio" name="gender" value="option1">*@
-                    @foreach (var value in Enum.GetValues(typeof(Sellopedia.Models.EnumerationsClass.Gender)))
-                    {
-                        <label class="custom-control custom-radio custom-control-inline">
-                            @Html.RadioButtonFor(m => m.Gender, value, new { @class = "custom-control-input" })
-                            <span class="custom-control-label"> @value </span>
-                        </label>
-                    }
-                    @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
-                </div> <!-- form-group end.// -->
+                @if (ViewBag.isParticular)
+                {
+                    <div class="form-group">
+                        @*<input class="custom-control-input" checked="" type="radio" name="gender" value="option1">*@
+                        @foreach (var value in Enum.GetValues(typeof(Sellopedia.Models.EnumerationsClass.Gender)))
+                        {
+                            <label class="custom-control custom-radio custom-control-inline">
+                                @Html.RadioButtonFor(m => m.Gender, value, new { @class = "custom-control-input" })
+                                <span class="custom-control-label"> @value </span>
+                            </label>
+                        }
+                        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                    </div> <!-- form-group end.// -->
+                }
 
                 <div class="form-row">
                     <div class="form-group col-md-6">

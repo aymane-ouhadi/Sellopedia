@@ -59,6 +59,10 @@ namespace Sellopedia.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if(Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -139,8 +143,15 @@ namespace Sellopedia.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string UserType)
         {
+            // check if user signing up is particular or not
+            if(UserType != "Particular" && UserType != "Organisation")
+            {
+                return RedirectToAction("Register", "Account", new { UserType = "Particular" });
+            }
+            ViewBag.isParticular = (UserType == "Particular") ;
+
             return View();
         }
 
@@ -149,8 +160,32 @@ namespace Sellopedia.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(string UserType, RegisterViewModel model)
         {
+            ViewBag.isParticular = (UserType == "Particular");
+
+            // setup AccountType & validation for (UserName , First + Last Name)
+            Sellopedia.Models.EnumerationsClass.AccountType AccountType;
+            if (UserType == "Particular")
+            {
+                //model.UserName = "";
+                ModelState["UserName"].Errors.Clear();
+                AccountType = Sellopedia.Models.EnumerationsClass.AccountType.Particular;
+
+            }
+            else if(UserType == "Organisation")
+            {
+                //model.FirstName = "";
+                //model.LastName = "";
+                ModelState["FirstName"].Errors.Clear();
+                ModelState["LastName"].Errors.Clear();
+                AccountType = Sellopedia.Models.EnumerationsClass.AccountType.Organisation;
+            }
+            else
+            {
+                return RedirectToAction("Register", "Account", new { UserType = "Particular" });
+            }
+
             if (ModelState.IsValid)
             {
                 //string ImagePath = null;
@@ -175,13 +210,13 @@ namespace Sellopedia.Controllers
                 var user = new ApplicationUser {
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    UserName = model.Email,
+                    UserName = model.UserName,
                     Email = model.Email,
                     City = model.City,
                     Country = model.Country,
                     Gender = model.Gender,
-                    AccountType = Sellopedia.Models.EnumerationsClass.AccountType.Particular,
-                    ProfileImage = "~/Storage/ProfileImages/default_user.png"
+                    AccountType = AccountType,
+                    ProfileImage = "/Storage/ProfileImages/default_user.png"
                 };
 
                 var result = await UserManager.CreateAsync(user, model.Password);

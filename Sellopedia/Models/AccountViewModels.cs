@@ -66,6 +66,10 @@ namespace Sellopedia.Models
 
     public class RegisterViewModel
     {
+        [Required(ErrorMessageResourceName = "UserNameRequired", ErrorMessageResourceType = typeof(Resources.ResUser))]
+        [Display(Name = "UserName", ResourceType = typeof(Resources.ResUser))]
+        public string UserName { get; set; }
+
         [Required(ErrorMessageResourceName = "FirstNameRequired", ErrorMessageResourceType = typeof(Resources.ResUser))]
         [Display(Name = "FirstName", ResourceType = typeof(Resources.ResUser))]
         public string FirstName { get; set; }

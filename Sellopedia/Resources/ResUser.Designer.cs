@@ -266,5 +266,14 @@ namespace Sellopedia.Resources {
                 return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserNameis required.
+        /// </summary>
+        public static string UserNameRequired {
+            get {
+                return ResourceManager.GetString("UserNameRequired", resourceCulture);
+            }
+        }
     }
 }
