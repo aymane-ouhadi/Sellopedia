@@ -65,6 +65,7 @@
         <div class="card-body">
             <h4 class="card-title mb-4">Sign in</h4>
             <form>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
