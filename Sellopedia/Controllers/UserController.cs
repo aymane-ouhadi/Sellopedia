@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,6 +18,8 @@ namespace Sellopedia.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
+        //--------- User Profile -------------//
+        // GET: User/EditProfile
         public ActionResult EditProfile()
         {
             string currentUserId = User.Identity.GetUserId();
@@ -28,7 +31,7 @@ namespace Sellopedia.Controllers
             return View(user);
         }
 
-        [Authorize]
+        // POST: User/EditProfile
         [HttpPost]
         public ActionResult EditProfile(ApplicationUser model)
         {
@@ -45,7 +48,28 @@ namespace Sellopedia.Controllers
             return RedirectToAction("EditProfile");
         }
 
-        [Authorize]
+
+
+        //--------- User Products -------------//
+        // GET: User/MyProducts
+        public ActionResult MyProducts(int? id)
+        {
+            string userId = User.Identity.GetUserId();
+            Product[] products = db.Products.Where(p => p.UserId == userId).ToArray();
+
+            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.User = db.Users.Find(userId);
+            ViewBag.ProductImage = db.ProductImages.ToList();
+
+            if(id != null && db.Products.Find(id) != null)
+            {
+                return View("Index1");
+            }
+
+            return View(products);
+        }
+
+        // GET: User/CreateProduct
         public ActionResult CreateProduct()
         {
             ViewBag.Categories = db.Categories.ToList();
@@ -55,7 +79,6 @@ namespace Sellopedia.Controllers
         // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateProduct(ProductViewModel model)
@@ -115,7 +138,24 @@ namespace Sellopedia.Controllers
                     }
                 }
             }
-            return RedirectToAction("UserOwnerProducts");
+            return RedirectToAction("MyProducts");
+        }
+
+
+        //--------- Products -------------//
+        // GET: Products/Details/5
+        public ActionResult ProductDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
         }
     }
 }

@@ -464,6 +464,7 @@
     <Content Include="Views\User\EditProfile.cshtml" />
     <Content Include="Views\UserAdmin\CreateProduct.cshtml" />
     <Content Include="Views\User\CreateProduct.cshtml" />
+    <Content Include="Views\User\MyProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
