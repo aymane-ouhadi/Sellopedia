@@ -105,7 +105,7 @@ namespace Sellopedia.Controllers
                             ProductImage productImage = new ProductImage
                             {
                                 ProductId = product.Id,
-                                Image = ImagePath
+                                Image = Path.Combine(ConfigurationManager.AppSettings["ProductImagesPath"], FileName)
                             };
 
                             db.ProductImages.Add(productImage);
