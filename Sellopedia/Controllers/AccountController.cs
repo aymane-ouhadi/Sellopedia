@@ -82,6 +82,20 @@ namespace Sellopedia.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+
+            if (result == SignInStatus.Failure)
+            {
+                // signin is made with the username as in identity username should be email
+                // for organisation type accounts username is the name of the organisation
+                // we query the db for the username that belongs to the current organisations email
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    model.Email = db.Users.Where(user => user.Email == model.Email).FirstOrDefault().UserName;
+                }
+
+                result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            }
+
             switch (result)
             {
                 case SignInStatus.Success:

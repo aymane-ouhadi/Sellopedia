@@ -229,6 +229,14 @@
     <Compile Include="Migrations\202201102149283_Cart-Order-Navigation.Designer.cs">
       <DependentUpon>202201102149283_Cart-Order-Navigation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201121028292_Removing IsMain for now.cs" />
+    <Compile Include="Migrations\202201121028292_Removing IsMain for now.Designer.cs">
+      <DependentUpon>202201121028292_Removing IsMain for now.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201131313056_Product-discountPrice-acceptNull.cs" />
+    <Compile Include="Migrations\202201131313056_Product-discountPrice-acceptNull.Designer.cs">
+      <DependentUpon>202201131313056_Product-discountPrice-acceptNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -239,9 +247,15 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
+    <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ResProduct.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResProduct.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ResUser.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -445,11 +459,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserAdmin\UserPage.cshtml" />
     <Content Include="Views\UserAdmin\AdminPage.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
-    <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
-    <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\UserAdmin\CreateOrder.cshtml" />
     <Content Include="Views\UserAdmin\LeaveReview.cshtml" />
     <Content Include="Views\UserAdmin\UserCreateProduct.cshtml" />
@@ -457,9 +466,15 @@
     <Content Include="Views\UserAdmin\ImageUpload.cshtml" />
     <Content Include="Views\UserAdmin\EditProfile.cshtml" />
     <Content Include="Views\User\EditProfile.cshtml" />
+    <Content Include="Views\UserAdmin\CreateProduct.cshtml" />
+    <Content Include="Views\User\CreateProduct.cshtml" />
+    <Content Include="Views\User\MyProducts.cshtml" />
+    <Content Include="Views\User\EditProduct.cshtml" />
+    <Content Include="Views\User\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Storage\ProductImages\" />
     <Folder Include="Storage\ProfileImages\" />
     <Folder Include="Views\Shop\" />
   </ItemGroup>
@@ -515,6 +530,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201102149283_Cart-Order-Navigation.resx">
       <DependentUpon>202201102149283_Cart-Order-Navigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201121028292_Removing IsMain for now.resx">
+      <DependentUpon>202201121028292_Removing IsMain for now.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201131313056_Product-discountPrice-acceptNull.resx">
+      <DependentUpon>202201131313056_Product-discountPrice-acceptNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResProduct.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResProduct.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResUser.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

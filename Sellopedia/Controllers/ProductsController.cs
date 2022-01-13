@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Sellopedia.Models;
 
 namespace Sellopedia.Controllers
@@ -39,7 +42,6 @@ namespace Sellopedia.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName");
             return View();
         }
 
@@ -48,16 +50,62 @@ namespace Sellopedia.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,OriginalPrice,DiscountPrice,Quantity,UserId")] Product product)
+        public ActionResult Create(ProductViewModel model)
         {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            Product product = null;
+
             if (ModelState.IsValid)
             {
+                product = new Product()
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    OriginalPrice = model.OriginalPrice,
+                    DiscountPrice = model.DiscountPrice,
+                    Quantity = model.Quantity,
+                    UserId = User.Identity.GetUserId(),
+                    CategoryId = model.CategoryId
+                };
                 db.Products.Add(product);
+
+
+                foreach (HttpPostedFileBase file in model.ProductImages)
+                {
+                    if(file != null)
+                    {
+                        string ImagePath = null;
+                        string FileName = null;
+                        if (file != null)
+                        {
+                            //Setting up the file name ([Date]_[filename].[extension])
+                            FileName = Path.GetFileNameWithoutExtension(file.FileName);
+                            string FileExtension = Path.GetExtension(file.FileName);
+                            FileName = DateTime.Now.ToString("yyyyMMdd") + "_" + FileName.Trim() + FileExtension;
+
+                            //Defining the upload path, this will return : [(ProjectPath)/(ProfileImagesPath)]
+                            //ConfigurationManager.AppSettings["ProfileImagesPath"] : the path to the profile images (You'll find it in Web.config : <add key="ProfileImagesPath" value="Storage/ProfileImages"/>)
+                            ImagePath = ConfigurationManager.AppSettings["ProductImagesPath"] + FileName;
+
+                            file.SaveAs(ImagePath);
+
+                            //Adding the product image to the database
+                            ProductImage productImage = new ProductImage
+                            {
+                                ProductId = product.Id,
+                                Image = ImagePath
+                            };
+
+                            db.ProductImages.Add(productImage);
+
+                        }
+                    }
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", product.UserId);
             return View(product);
         }
 

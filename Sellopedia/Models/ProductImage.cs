@@ -12,16 +12,9 @@ namespace Sellopedia.Models
         [Key]
         public int Id { get; set; }
         public string Image { get; set; }
-        public Boolean IsMainImage { get; set; }
-
 
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
-
-        public ProductImage()
-        {
-            IsMainImage = false;
-        }
     }
 }
