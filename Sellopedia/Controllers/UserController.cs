@@ -52,21 +52,67 @@ namespace Sellopedia.Controllers
 
         //--------- User Products -------------//
         // GET: User/MyProducts
-        public ActionResult MyProducts(int? id)
+        public ActionResult MyProducts()
         {
             string userId = User.Identity.GetUserId();
-            Product[] products = db.Products.Where(p => p.UserId == userId).ToArray();
+            Product[] products = db.Products.Where(p => p.UserId == userId).OrderByDescending(p => p.Id).ToArray();
 
             ViewBag.Categories = db.Categories.ToList();
             ViewBag.User = db.Users.Find(userId);
             ViewBag.ProductImage = db.ProductImages.ToList();
 
-            if(id != null && db.Products.Find(id) != null)
+            return View(products);
+        }
+
+        // GET: User/EditProduct/id
+        public ActionResult EditProduct(int? id)
+        {
+            if(id == null || db.Products.Find(id) == null)
             {
-                return View("Index1");
+                return RedirectToAction("MyProducts");
             }
 
-            return View(products);
+            Product product = db.Products.Find(id);
+
+            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.User = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.ProductImage = db.ProductImages.ToList();
+
+            return View(product);
+        }
+
+        // Post: User/EditProduct/id
+        [HttpPost]
+        public ActionResult EditProduct(Product model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // product images shouldnt be update/edited
+            Product product = model;
+            db.Products.AddOrUpdate(product);
+            db.SaveChanges();
+
+            return RedirectToAction("MyProducts");
+        }
+
+        // GET: User/ProductDetails/id
+        public ActionResult ProductDetails(int? id)
+        {
+            if (id == null || db.Products.Find(id) == null)
+            {
+                return RedirectToAction("MyProducts");
+            }
+
+            Product product = db.Products.Find(id);
+
+            ViewBag.Categories = db.Categories.ToList();
+            ViewBag.User = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.ProductImage = db.ProductImages.ToList();
+
+            return View(product);
         }
 
         // GET: User/CreateProduct
@@ -128,7 +174,7 @@ namespace Sellopedia.Controllers
                             ProductImage productImage = new ProductImage
                             {
                                 ProductId = product.Id,
-                                Image = Path.Combine(ConfigurationManager.AppSettings["ProductImagesPath"], FileName)
+                                Image = Path.Combine("/", ConfigurationManager.AppSettings["ProductImagesPath"], FileName)
                             };
 
                             db.ProductImages.Add(productImage);
@@ -144,18 +190,18 @@ namespace Sellopedia.Controllers
 
         //--------- Products -------------//
         // GET: Products/Details/5
-        public ActionResult ProductDetails(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(product);
-        }
+        //public ActionResult ProductDetails(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Product product = db.Products.Find(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(product);
+        //}
     }
 }

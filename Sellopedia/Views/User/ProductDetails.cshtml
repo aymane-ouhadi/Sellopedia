@@ -1,0 +1,94 @@
+﻿@model Sellopedia.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>ProductDetails</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+
+    reviews:  @Model.Reviews.Count
+    @foreach(var review in Model.Reviews)
+            {
+                <div>
+                    <h3>score @review.Score</h3>
+                    <h4>"@review.Message"</h4>
+                </div>
+            }
+
+    <div class="form-group">
+        @foreach (var productImage in Model.ProductImages)
+        {
+            <div class="col-md-10">
+                <img src="@productImage.Image" height="400" style="object-fit:contain" />
+            </div>
+        }
+    </div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OriginalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OriginalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "EditProduct", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "MyProducts")
+</p>

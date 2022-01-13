@@ -23,7 +23,7 @@ namespace Sellopedia.Models
 
 
         [Display(Name = "DiscountPrice", ResourceType = typeof(Resources.ResProduct))]
-        public decimal DiscountPrice { get; set; }
+        public decimal? DiscountPrice { get; set; }
 
         [Required(ErrorMessageResourceName = "QuantityRequired", ErrorMessageResourceType = typeof(Resources.ResProduct))]
         [Display(Name = "Quantity", ResourceType = typeof(Resources.ResProduct))]

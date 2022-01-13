@@ -233,6 +233,10 @@
     <Compile Include="Migrations\202201121028292_Removing IsMain for now.Designer.cs">
       <DependentUpon>202201121028292_Removing IsMain for now.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201131313056_Product-discountPrice-acceptNull.cs" />
+    <Compile Include="Migrations\202201131313056_Product-discountPrice-acceptNull.Designer.cs">
+      <DependentUpon>202201131313056_Product-discountPrice-acceptNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -465,6 +469,8 @@
     <Content Include="Views\UserAdmin\CreateProduct.cshtml" />
     <Content Include="Views\User\CreateProduct.cshtml" />
     <Content Include="Views\User\MyProducts.cshtml" />
+    <Content Include="Views\User\EditProduct.cshtml" />
+    <Content Include="Views\User\ProductDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -527,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201121028292_Removing IsMain for now.resx">
       <DependentUpon>202201121028292_Removing IsMain for now.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201131313056_Product-discountPrice-acceptNull.resx">
+      <DependentUpon>202201131313056_Product-discountPrice-acceptNull.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResProduct.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

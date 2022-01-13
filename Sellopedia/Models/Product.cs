@@ -24,7 +24,7 @@ namespace Sellopedia.Models
         public string Description { get; set; }
 
         public decimal OriginalPrice { get; set; }
-        public decimal DiscountPrice { get; set; }
+        public decimal? DiscountPrice { get; set; }
 
         [Range(0, 1000)]
         public int Quantity { get; set; }
