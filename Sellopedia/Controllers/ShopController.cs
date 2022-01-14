@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sellopedia.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,12 @@ namespace Sellopedia.Controllers
 {
     public class ShopController : Controller
     {
-        // GET: Shop
-        public ActionResult Index()
+        ApplicationDbContext db = new ApplicationDbContext();
+
+        public ActionResult Feed()
         {
-            return View();
+            var products = db.Products.ToList();
+            return View(products);
         }
     }
 }

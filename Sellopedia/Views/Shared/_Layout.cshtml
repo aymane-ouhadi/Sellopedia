@@ -143,7 +143,7 @@
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             @*<a href="@Url.Action("Register", "Account")" class="nav-item nav-link">Register</a>
-        <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Log in</a>*@
+                                <a href="@Url.Action("Login", "Account")" class="nav-item nav-link">Log in</a>*@
                             @if (Request.IsAuthenticated)
                             {
                                 using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "d-inline-flex p-2" }))
@@ -209,14 +209,11 @@
             </div>
         </div>*@
     <!-- Old navbar -->
-
-
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-    </div>
-
+    @*<div class="container body-content">
+            @RenderBody()
+            <hr />
+        </div>*@
+    @RenderBody()
 
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary text-dark mt-5 pt-5">

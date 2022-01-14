@@ -471,12 +471,12 @@
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\EditProduct.cshtml" />
     <Content Include="Views\User\ProductDetails.cshtml" />
+    <Content Include="Views\Shop\Feed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Storage\ProductImages\" />
     <Folder Include="Storage\ProfileImages\" />
-    <Folder Include="Views\Shop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
