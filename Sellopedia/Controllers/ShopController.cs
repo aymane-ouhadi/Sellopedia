@@ -11,7 +11,7 @@ namespace Sellopedia.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
 
-        public ActionResult Feed()
+        public ActionResult Index()
         {
             var products = db.Products.ToList();
             return View(products);

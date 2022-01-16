@@ -471,7 +471,7 @@
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\EditProduct.cshtml" />
     <Content Include="Views\User\ProductDetails.cshtml" />
-    <Content Include="Views\Shop\Feed.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
