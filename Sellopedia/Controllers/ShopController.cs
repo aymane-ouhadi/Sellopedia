@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using Sellopedia.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace Sellopedia.Controllers
         {
             if (id == null || db.Products.Find(id) == null)
             {
-                return RedirectToAction("Feed");
+                return RedirectToAction("Index");
             }
 
             Product product = db.Products.Find(id);
@@ -41,14 +42,19 @@ namespace Sellopedia.Controllers
             return View(product);
         }
 
-        //[HttpGet]
-        //public ActionResult CreateReview(int id)
-        //{
-        //    Review review = new Review();
-        //    review.UserId = User.Identity.GetUserId();
-        //    review.ProductId = id;
-        //    return View(review);
-        //}
+        public ActionResult Cart()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateReview(int id)
+        {
+            Review review = new Review();
+            review.UserId = User.Identity.GetUserId();
+            review.ProductId = id;
+            return View(review);
+        }
 
         [Authorize]
         [HttpPost]
@@ -71,6 +77,43 @@ namespace Sellopedia.Controllers
             db.SaveChanges();
 
             return Json(new { userId = model.UserId, productId = model.ProductId, score = model.Score, message = model.Message }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
+
+        //------------ Functional Methods ------------//
+        public JsonResult AddToCart(int product_id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+
+            Product product = db.Products.Find(product_id);
+            string product_main_image = db.ProductImages.Where(image => image.ProductId == product_id).FirstOrDefault().Image;
+
+            //Order order = new Order()
+            //{
+            //    UserId = User.Identity.GetUserId(),
+            //    ProductId = product.Id,
+            //    OrderPrice = (decimal) (product.DiscountPrice != null ? product.DiscountPrice : product.OriginalPrice),
+            //    Quantity = 1
+            //};
+
+            var order = new
+            {
+                UserId = User.Identity.GetUserId(),
+                OrderPrice = (decimal)(product.DiscountPrice != null ? product.DiscountPrice : product.OriginalPrice),
+                CurrentProduct = new
+                {
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    ProductImage = product_main_image,
+                    ProductPrice = (decimal)(product.DiscountPrice != null ? product.DiscountPrice : product.OriginalPrice),
+                },
+                Quantity = 1
+            };
+
+            return Json(order, JsonRequestBehavior.AllowGet);
         }
     }
 }

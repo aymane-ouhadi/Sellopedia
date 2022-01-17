@@ -81,9 +81,9 @@
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+                <a href="@Url.Action("Cart", "Shop")" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span id="cart-count" class="badge"></span>
                 </a>
             </div>
         </div>
@@ -129,7 +129,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
+                            <a href="@Url.Action("Index", "Shop")" class="nav-item nav-link">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
                             <a href="detail.html" class="nav-item nav-link active">Shop Detail</a>
                             <div class="nav-item dropdown">
@@ -292,6 +292,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/lib/easing/easing.min.js"></script>
     <script src="~/Content/lib/owlcarousel/owl.carousel.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>*@
 
     <!-- Contact Javascript File -->
     <script src="~/Content/mail/jqBootstrapValidation.min.js"></script>
@@ -299,6 +300,111 @@
 
     <!-- Template Javascript -->
     <script src="~/Content/js/main.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            //------------- Add to cart jquery functionality
+            $("#cart-count").text((JSON.parse(localStorage.getItem("Cart")) || []).length)
+            $(".add-to-cart").click(function () {
+                $.get("/Shop/AddToCart", { product_id: $(this).find(".product_id").val() }, function (data) {
+                    var cartItems = JSON.parse(localStorage.getItem("Cart")) || []
+                    if (!cartItems.some(item => item.CurrentProduct.ProductId === data.CurrentProduct.ProductId)) {
+                        cartItems.push(data)
+                        localStorage.setItem("Cart", JSON.stringify(cartItems))
+                    }
+                    $("#cart-count").text(cartItems.length)
+                });
+            })
+            
+
+            displayCartItems()
+            updateCartSummary()
+
+        });
+
+        //------------- Cart displaying jquery functionality
+        const CartItem = (cartItem) => {
+            return (
+                `<tr>
+                        <td class="align-middle"><img src="${cartItem.CurrentProduct.ProductImage}" alt="${cartItem.CurrentProduct.ProductName}" style="width: 50px;">${cartItem.CurrentProduct.ProductName}</td>
+                        <td class="align-middle">${cartItem.CurrentProduct.ProductPrice}  DH</td>
+                        <td class="align-middle">
+                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary btn-minus" onclick="handleDecrement(${cartItem.CurrentProduct.ProductId})">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control form-control-sm bg-secondary text-center item-quantity" value="${cartItem.Quantity}">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary btn-plus" onclick="handleIncrement(${cartItem.CurrentProduct.ProductId})">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle">${cartItem.OrderPrice}  DH</td>
+                        <td class="align-middle">
+                            <button class="btn btn-sm btn-primary" onclick="handleRemove(${cartItem.CurrentProduct.ProductId})">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </td>
+                    </tr>`
+            )
+        }
+
+        const displayCartItems = () => {
+            $("#cart-list").html((JSON.parse(localStorage.getItem("Cart")) || []).map(item => CartItem(item)).join(""))
+        }
+
+        const updateCartSummary = () => {
+            var cart = (JSON.parse(localStorage.getItem("Cart")) || [])
+            var total = cart.reduce((previous, current) => previous.OrderPrice + current.OrderPrice)
+            console.clear()
+            console.log(total)
+            $(".total").text(`${total} DH`)
+
+        }
+
+        //------------- Cart Items manipulating jquery functionality
+        const handleDecrement = (product_id) => {
+            var cart = JSON.parse(localStorage.getItem("Cart")) || []
+            cart = cart.map(item => {
+                if (item.CurrentProduct.ProductId == product_id && item.Quantity > 1) {
+                    return { ...item, Quantity: item.Quantity - 1, OrderPrice: (item.Quantity - 1) * item.CurrentProduct.ProductPrice }
+                }
+                return item
+            })
+            localStorage.setItem("Cart", JSON.stringify(cart))
+            displayCartItems()
+            updateCartSummary()
+        }
+
+        const handleIncrement = (product_id) => {
+            var cart = JSON.parse(localStorage.getItem("Cart")) || []
+            cart = cart.map(item => {
+                if (item.CurrentProduct.ProductId == product_id) {
+                    return { ...item, Quantity: item.Quantity + 1, OrderPrice: (item.Quantity + 1) * item.CurrentProduct.ProductPrice}
+                }
+                return item
+            })
+            localStorage.setItem("Cart", JSON.stringify(cart))
+            displayCartItems()
+            updateCartSummary()
+        }
+
+        const handleRemove = (product_id) => {
+            var cart = JSON.parse(localStorage.getItem("Cart")) || []
+            cart = cart.filter(item => item.CurrentProduct.ProductId != product_id)
+            localStorage.setItem("Cart", JSON.stringify(cart))
+            displayCartItems()
+            $("#cart-count").text((JSON.parse(localStorage.getItem("Cart")) || []).length)
+            updateCartSummary()
+        }
+
+
+    </script>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

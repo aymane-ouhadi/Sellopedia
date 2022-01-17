@@ -237,6 +237,10 @@
     <Compile Include="Migrations\202201131313056_Product-discountPrice-acceptNull.Designer.cs">
       <DependentUpon>202201131313056_Product-discountPrice-acceptNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201161354434_Added user reference to cart.cs" />
+    <Compile Include="Migrations\202201161354434_Added user reference to cart.Designer.cs">
+      <DependentUpon>202201161354434_Added user reference to cart.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -474,6 +478,7 @@
     <Content Include="Views\Shop\Feed.cshtml" />
     <Content Include="Views\Shop\Product.cshtml" />
     <Content Include="Views\Shop\CreateReview.cshtml" />
+    <Content Include="Views\Shop\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -538,6 +543,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201131313056_Product-discountPrice-acceptNull.resx">
       <DependentUpon>202201131313056_Product-discountPrice-acceptNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201161354434_Added user reference to cart.resx">
+      <DependentUpon>202201161354434_Added user reference to cart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResProduct.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
