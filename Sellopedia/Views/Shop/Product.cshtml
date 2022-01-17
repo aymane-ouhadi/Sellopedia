@@ -1,0 +1,150 @@
+﻿@model Sellopedia.Models.Product
+
+@{
+    ViewBag.Title = "ProductDetails";
+}
+
+<h2>ProductDetails</h2>
+
+<div>
+    <h4>Product</h4>
+    <h5>Product Rating: @ViewBag.ProductRating</h5>
+    <div class="text-primary mb-2">
+        @for (int i = 1; i <= 5; i++)
+        {
+            if (i <= ViewBag.ProductRating)
+            {
+                <i class="fas fa-star"></i>
+            }
+            else if (i - 0.5 <= ViewBag.ProductRating)
+            {
+                <i class="fas fa-star-half-alt"></i>
+            }
+            else
+            {
+                <i class="far fa-star"></i>
+            }
+
+        }
+        @*<i class="fas fa-star-half-alt"></i>
+        <i class="far fa-star"></i>*@
+    </div>
+    <hr />
+
+    <div class="form-group">
+        @foreach (var productImage in Model.ProductImages)
+        {
+            <div class="col-md-10">
+                <img src="@productImage.Image" height="400" style="object-fit:contain" />
+            </div>
+        }
+    </div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OriginalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OriginalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+    </dl>
+</div>
+
+<hr />
+<h2>Reviews section</h2>
+<h4 class="mb-4">@Model.Reviews.Count review for "@Model.Name"</h4>
+@foreach (var review in Model.Reviews)
+{
+    <div class="col-md-6">
+        <div class="media mb-4">
+            <img src="@review.User.ProfileImage" alt="Username" class="img-fluid mr-3 mt-1" style="width: 45px;">
+            <div class="media-body">
+                <h6>@review.User.FirstName @review.User.LastName<small> - <i>01 Jan 2045</i></small></h6>
+                <div class="text-primary mb-2">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= review.Score)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                        else
+                        {
+                            <i class="far fa-star"></i>
+                        }
+
+                    }
+                    @*<i class="fas fa-star-half-alt"></i>
+                        <i class="far fa-star"></i>*@
+                </div>
+                <p>@review.Score</p>
+                <p>@review.Message</p>
+            </div>
+        </div>
+    </div>
+}
+<hr />
+
+@* ------------------- REVIEW -------------------*@
+<h1>Submit a new review</h1>
+<h3 class="danger">@ViewBag.reviewError</h3>
+
+@Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id })
+
+@*-----------------------------------------------*@
+
+
+<p>
+    @*@Html.ActionLink("Edit", "EditProduct", new { id = Model.Id }) |*@
+    @Html.ActionLink("Back to Shop", "Feed")
+</p>

@@ -29,6 +29,8 @@ namespace Sellopedia.Models
         public virtual ICollection<Order> Orders { get; set; }
         //--- Review
         public virtual ICollection<Review> Reviews { get; set; }
+        //--- Cart 
+        public virtual ICollection<Cart> Carts { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
