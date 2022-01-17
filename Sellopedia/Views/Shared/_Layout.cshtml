@@ -359,7 +359,7 @@
 
         const updateCartSummary = () => {
             var cart = (JSON.parse(localStorage.getItem("Cart")) || [])
-            var total = cart.reduce((previous, current) => previous.OrderPrice + current.OrderPrice)
+            var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
             console.clear()
             console.log(total)
             $(".total").text(`${total} DH`)
