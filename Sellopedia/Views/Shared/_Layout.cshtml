@@ -364,6 +364,8 @@
             var cart = (JSON.parse(localStorage.getItem("Cart")) || [])
             var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
             $(".total").text(`${total} DH`)
+            if (cart.length == 0) $(".proceed-to-checkout").attr("disabled", true)
+            else $(".proceed-to-checkout").attr("disabled", false)
         }
 
         //------------- Cart Items manipulating jquery functionality
