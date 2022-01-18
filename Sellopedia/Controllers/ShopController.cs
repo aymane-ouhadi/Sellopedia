@@ -14,8 +14,15 @@ namespace Sellopedia.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
-        public ActionResult Index()
+        public ActionResult Index(string search)
         {
+            // ! should show a message of no result found in the view
+            if (search != null)
+            {
+                var productsSearch = db.Products.Where(p => p.Name.Contains(search)).ToList();
+                return View(productsSearch);
+            }
+
             var products = db.Products.ToList();
             return View(products);
         }
@@ -54,15 +61,6 @@ namespace Sellopedia.Controllers
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
 
             return View(user);
-        }
-
-        [HttpGet]
-        public ActionResult CreateReview(int id)
-        {
-            Review review = new Review();
-            review.UserId = User.Identity.GetUserId();
-            review.ProductId = id;
-            return View(review);
         }
 
         [Authorize]
@@ -123,6 +121,15 @@ namespace Sellopedia.Controllers
             };
 
             return Json(order, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchProduct(string search_text)
+        {
+            var result = db.Products.Where(p => p.Name.Contains(search_text))
+                .Select(p => p.Name)
+                .ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
