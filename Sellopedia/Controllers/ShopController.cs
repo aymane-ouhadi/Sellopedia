@@ -42,9 +42,18 @@ namespace Sellopedia.Controllers
             return View(product);
         }
 
+        [Authorize]
         public ActionResult Cart()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Checkout()
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+
+            return View(user);
         }
 
         [HttpGet]

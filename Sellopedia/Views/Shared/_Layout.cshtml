@@ -320,6 +320,7 @@
             displayCartItems()
             updateCartSummary()
 
+            displayCheckoutItems()
         });
 
         //------------- Cart displaying jquery functionality
@@ -349,21 +350,20 @@
                                 <i class="fa fa-times"></i>
                             </button>
                         </td>
-                    </tr>`
+                </tr>`
             )
         }
 
         const displayCartItems = () => {
-            $("#cart-list").html((JSON.parse(localStorage.getItem("Cart")) || []).map(item => CartItem(item)).join(""))
+            $("#cart-list").html(
+                (JSON.parse(localStorage.getItem("Cart")) || []).map(item => CartItem(item)).join("")
+            )
         }
 
         const updateCartSummary = () => {
             var cart = (JSON.parse(localStorage.getItem("Cart")) || [])
             var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
-            console.clear()
-            console.log(total)
             $(".total").text(`${total} DH`)
-
         }
 
         //------------- Cart Items manipulating jquery functionality
@@ -401,7 +401,24 @@
             $("#cart-count").text((JSON.parse(localStorage.getItem("Cart")) || []).length)
             updateCartSummary()
         }
+        //------------- Checkout jquery functionality
+        const CheckoutItem = (checkoutItem) => {
+            return (
+                `<div class="d-flex justify-content-between">
+                    <p>${checkoutItem.CurrentProduct.ProductName} | ${checkoutItem.Quantity}</p>
+                    <p>${checkoutItem.OrderPrice} DH</p>
+                </div>`
+            )
+        }
 
+        const displayCheckoutItems = () => {
+            var cart = JSON.parse(localStorage.getItem("Cart")) || []
+            var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
+            $(".checkout-card-header").after(
+                cart.map(item => CheckoutItem(item)).join("")
+            )
+            $(".checkout-total").text(`${total} DH`)
+        }
 
     </script>
 
