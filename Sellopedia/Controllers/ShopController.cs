@@ -14,9 +14,18 @@ namespace Sellopedia.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
-        public ActionResult Index(string search)
+        public ActionResult Index(string search, int? categoryId)
         {
             // ! should show a message of no result found in the view
+
+            if(categoryId != null)
+            {
+                var productsSearch = db.Products
+                    .Where(p => p.CategoryId == categoryId)
+                    .ToList();
+                return View(productsSearch);
+            }
+
             if (search != null)
             {
                 var productsSearch = db.Products.Where(p => p.Name.Contains(search)).ToList();
