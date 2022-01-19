@@ -24,6 +24,38 @@
                 @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
             </div>
         </div>
+        <style>
+		    .rating {
+		      unicode-bidi: bidi-override;
+		      direction: rtl;
+		      text-align: center;
+		    }
+		    .rating > span {
+		      display: inline-block;
+		      position: relative;
+		      width: 1.1em;
+		    }
+		    .rating > span:hover,
+		    .rating > span:hover ~ span {
+		      color: transparent;
+              cursor: pointer;
+		    }
+		    .rating > span:hover:before,
+		    .rating > span:hover ~ span:before {
+		       content: "\2605";
+		       position: absolute;
+		       left: 0;
+		       color: gold;
+		    }
+	    </style>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <div class="rating">
+                    <span class="star" id="5">☆</span><span class="star" id="4">☆</span><span class="star" id="3">☆</span><span class="star" id="2">☆</span><span class="star" id="1">☆</span>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Score, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -53,6 +85,9 @@
     @Html.ActionLink("Back to List", "Index")
 </div>*@
 
+
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
