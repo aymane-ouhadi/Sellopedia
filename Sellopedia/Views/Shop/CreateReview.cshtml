@@ -5,80 +5,105 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>Review</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>Review</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.UserId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(m => m.ProductId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.ProductId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
         </div>
-        <style>
-		    .rating {
-		      unicode-bidi: bidi-override;
-		      direction: rtl;
-		      text-align: center;
-		    }
-		    .rating > span {
-		      display: inline-block;
-		      position: relative;
-		      width: 1.1em;
-		    }
-		    .rating > span:hover,
-		    .rating > span:hover ~ span {
-		      color: transparent;
-              cursor: pointer;
-		    }
-		    .rating > span:hover:before,
-		    .rating > span:hover ~ span:before {
-		       content: "\2605";
-		       position: absolute;
-		       left: 0;
-		       color: gold;
-		    }
-	    </style>
+    </div>
+    <style>
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: center;
+        }
 
-        <div class="form-group">
-            <div class="col-md-10">
-                <div class="rating">
-                    <span class="star" id="5">☆</span><span class="star" id="4">☆</span><span class="star" id="3">☆</span><span class="star" id="2">☆</span><span class="star" id="1">☆</span>
-                </div>
-            </div>
-        </div>
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+            font-size: 35px;
+            /*color: #D19C97;*/
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Score, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Score, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Score, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .rating > span:hover,
+        .rating > span:hover ~ span {
+            color: transparent;
+            cursor: pointer;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .rating > span:hover:before,
+        .rating > span:hover ~ span:before {
+            content: "\2605";
+            position: absolute;
+            left: 0;
+            color: #D19C97;
+        }
+        .rating > span.hovered {
+            color: #D19C97;
+        }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        .rating > span.hovered:hover {
+            color: transparent;
+            cursor: pointer;
+        }
+
+        .rating > span.hovered:before,
+        .rating > span.hovered ~ span {
+            color: #D19C97;
+        }
+    </style>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <div class="rating">
+                <span class="star" id="5">☆</span><span class="star" id="4">☆</span><span class="star" id="3">☆</span><span class="star" id="2">☆</span><span class="star" id="1">☆</span>
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Score, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Score, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Score, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <input type="submit" value="Create" class="btn btn-default" disabled />
+            }
+            else
+            {
+                <input type="submit" value="Create" class="btn btn-primary" />
+            }
+        </div>
+    </div>
+</div>
 }
 
 @*<div>
