@@ -14,26 +14,38 @@ namespace Sellopedia.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
-        public ActionResult Index(string search, int? categoryId)
+        public ActionResult Index(string search, int? categoryId, int? minPrice, int? maxPrice)
         {
             // ! should show a message of no result found in the view
 
+            if(minPrice == null)
+            {
+                minPrice = 50;
+            }
+            if(maxPrice == null)
+            {
+                maxPrice = 5000;
+            }
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
+
+            var products = db.Products
+                .Where(p => p.OriginalPrice >= minPrice && p.OriginalPrice <= maxPrice);
+
             if(categoryId != null)
             {
-                var productsSearch = db.Products
-                    .Where(p => p.CategoryId == categoryId)
-                    .ToList();
+                var productsSearch = products.Where(p => p.CategoryId == categoryId).ToList();
                 return View(productsSearch);
             }
 
             if (search != null)
             {
-                var productsSearch = db.Products.Where(p => p.Name.Contains(search)).ToList();
+                var productsSearch = products.Where(p => p.Name.Contains(search)).ToList();
                 return View(productsSearch);
             }
 
-            var products = db.Products.ToList();
-            return View(products);
+            //products = db.Products.ToList();
+            return View(products.ToList());
         }
 
         public ActionResult Product(int? id)
