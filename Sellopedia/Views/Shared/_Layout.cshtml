@@ -18,13 +18,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="~/Content/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    @*<link href="~/Content/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">*@
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="~/Content/css/style.css" rel="stylesheet">
+    @*<link href="~/Content/css/style.css" rel="stylesheet">*@
 
     <!-- AutoComplete Stylesheet -->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+
+    @Styles.Render("~/Content/userTemplate")
+    @Styles.Render("~/Content/custom")
 
 
 </head>
@@ -306,246 +309,22 @@
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="~/Content/lib/easing/easing.min.js"></script>
-    <script src="~/Content/lib/owlcarousel/owl.carousel.min.js"></script>
+    @*<script src="~/Content/lib/easing/easing.min.js"></script>*@
+    @*<script src="~/Content/lib/owlcarousel/owl.carousel.min.js"></script>*@
     @*<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>*@
 
     <!-- Contact Javascript File -->
-    <script src="~/Content/mail/jqBootstrapValidation.min.js"></script>
-    <script src="~/Content/mail/contact.js"></script>
+    @*<script src="~/Content/mail/jqBootstrapValidation.min.js"></script>*@
+    @*<script src="~/Content/mail/contact.js"></script>*@
 
     <!-- Template Javascript -->
-    <script src="~/Content/js/main.js"></script>
+    @*<script src="~/Content/js/main.js"></script>*@
 
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('#search_text').autocomplete({
-                @*source: '@Url.Action("SearchProduct", "Shop")'*@
-                source: function (req, res) {
-                    $.ajax({
-                        url: '/shop/SearchProduct',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: { search_text: req.term },
-                        success: function (data) {
-                            res($.map(data, function (item) {
-                                return { label: item, value: item }
-                            }))
-                        }
-                    })
-                }
-            })
-        })
-    </script>
-
-    @* js for rating star system *@
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.star').click(function (event) {
-                console.log(`Score: ${event.target.id}`)
-                // set the value of Score in the Review Model to the value of the star
-                $('#Score').val(parseInt(event.target.id))
-                // force the state of the selected star to be hovered
-                $(this).toggleClass("hovered")
-                $('.star').map(function () {
-                    if ($(this).hasClass("hovered") && this.id != event.target.id) {
-                        $(this).toggleClass("hovered")
-                    }
-                })
-            })
-        })
-    </script>
-
-    @* Price filter slider *@
-    <script>
-        // Read a page's GET URL variables and return them as an associative array.
-        function getUrlVars() {
-            var vars = [], hash;
-            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-            for (var i = 0; i < hashes.length; i++) {
-                hash = hashes[i].split('=');
-                vars.push(hash[0]);
-                vars[hash[0]] = hash[1];
-            }
-            return vars;
-        }
-
-        // Slider ---------------------->
-        var min = 0, max = 5000;
-
-        $(function () {
-            $("#slider-range").slider({
-                range: true,
-                min: min,
-                max: max,
-                values: [
-                    getUrlVars()['minPrice'] ? getUrlVars()['minPrice'] : 50,
-                    getUrlVars()['maxPrice'] ? getUrlVars()['maxPrice'] : 5000
-                ],
-                slide: function (event, ui) {
-                    $('#minPrice').val(ui.values[0]);
-                    $('#maxPrice').val(ui.values[1]);
-                    $('#price').val(`${ui.values[0]}dh - ${ui.values[1]}dh`)
-                }
-            });
-            $('#price').val(`${$("#slider-range").slider("values", 0)}dh - ${$("#slider-range").slider("values", 1)}dh`)
-        });
-
-        // Form submit -------------------------->
-        var form = $('#price-filter-form')
-        form.submit(function (e) {
-            //e.preventDefault()
-
-            //get the querystring of category & search filters if available
-            if (getUrlVars()["categoryId"]) {
-                $('#category-filter').val(getUrlVars()["categoryId"])
-                $('#category-filter').removeAttr("disabled")
-            }
-            if (getUrlVars()["search"]) {
-                $('#search-filter').val(getUrlVars()["search"])
-                $('#search-filter').removeAttr("disabled")
-            }
-            
-            $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function (data) {
-                    console.log('Success:')
-                    console.log(form.serialize())
-                    console.log(form.serializeArray())
-                },
-                error: function (err) {
-                    console.log('Error:')
-                    console.log(err)
-                }
-            })
-        })
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            //------------- Add to cart jquery functionality
-            $("#cart-count").text((JSON.parse(localStorage.getItem("Cart")) || []).length)
-            $(".add-to-cart").click(function () {
-                $.get("/Shop/AddToCart", { product_id: $(this).find(".product_id").val() }, function (data) {
-                    var cartItems = JSON.parse(localStorage.getItem("Cart")) || []
-                    if (!cartItems.some(item => item.CurrentProduct.ProductId === data.CurrentProduct.ProductId)) {
-                        cartItems.push(data)
-                        localStorage.setItem("Cart", JSON.stringify(cartItems))
-                    }
-                    $("#cart-count").text(cartItems.length)
-                });
-            })
 
 
-            displayCartItems()
-            updateCartSummary()
-            displayCheckoutItems()
-
-        });
-
-        //------------- Cart displaying jquery functionality
-        const CartItem = (cartItem) => {
-            return (
-                `<tr>
-                    <td class="align-middle"><img src="${cartItem.CurrentProduct.ProductImage}" alt="${cartItem.CurrentProduct.ProductName}" style="width: 50px;">${cartItem.CurrentProduct.ProductName}</td>
-                    <td class="align-middle">${cartItem.CurrentProduct.ProductPrice}  DH</td>
-                    <td class="align-middle">
-                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-minus" onclick="handleDecrement(${cartItem.CurrentProduct.ProductId})">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control form-control-sm bg-secondary text-center item-quantity" value="${cartItem.Quantity}">
-                            <div class="input-group-btn">
-                                <button class="btn btn-sm btn-primary btn-plus" onclick="handleIncrement(${cartItem.CurrentProduct.ProductId})">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="align-middle">${cartItem.OrderPrice}  DH</td>
-                    <td class="align-middle">
-                        <button class="btn btn-sm btn-primary" onclick="handleRemove(${cartItem.CurrentProduct.ProductId})">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>`
-            )
-        }
-
-        const displayCartItems = () => {
-            $("#cart-list").html((JSON.parse(localStorage.getItem("Cart")) || []).map(item => CartItem(item)).join(""))
-        }
-
-        const updateCartSummary = () => {
-            var cart = (JSON.parse(localStorage.getItem("Cart")) || [])
-            var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
-            console.clear()
-            console.log(total)
-            $(".total").text(`${total} DH`)
-            if (cart.length == 0) $(".proceed-to-checkout").attr("disabled", true)
-            else $(".proceed-to-checkout").attr("disabled", false)
-        }
-
-        //------------- Cart Items manipulating jquery functionality
-        const handleDecrement = (product_id) => {
-            var cart = JSON.parse(localStorage.getItem("Cart")) || []
-            cart = cart.map(item => {
-                if (item.CurrentProduct.ProductId == product_id && item.Quantity > 1) {
-                    return { ...item, Quantity: item.Quantity - 1, OrderPrice: (item.Quantity - 1) * item.CurrentProduct.ProductPrice }
-                }
-                return item
-            })
-            localStorage.setItem("Cart", JSON.stringify(cart))
-            displayCartItems()
-            updateCartSummary()
-        }
-
-        const handleIncrement = (product_id) => {
-            var cart = JSON.parse(localStorage.getItem("Cart")) || []
-            cart = cart.map(item => {
-                if (item.CurrentProduct.ProductId == product_id) {
-                    return { ...item, Quantity: item.Quantity + 1, OrderPrice: (item.Quantity + 1) * item.CurrentProduct.ProductPrice }
-                }
-                return item
-            })
-            localStorage.setItem("Cart", JSON.stringify(cart))
-            displayCartItems()
-            updateCartSummary()
-        }
-
-        const handleRemove = (product_id) => {
-            var cart = JSON.parse(localStorage.getItem("Cart")) || []
-            cart = cart.filter(item => item.CurrentProduct.ProductId != product_id)
-            localStorage.setItem("Cart", JSON.stringify(cart))
-            displayCartItems()
-            $("#cart-count").text((JSON.parse(localStorage.getItem("Cart")) || []).length)
-            updateCartSummary()
-        }
-        //------------- Checkout jquery functionality
-        const CheckoutItem = (checkoutItem) => {
-            return (
-                `<div class="d-flex justify-content-between">
-                    <p>${checkoutItem.CurrentProduct.ProductName} | ${checkoutItem.Quantity}</p>
-                    <p>${checkoutItem.OrderPrice} DH</p>
-                </div>`
-            )
-        }
-
-        const displayCheckoutItems = () => {
-            var cart = JSON.parse(localStorage.getItem("Cart")) || []
-            var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
-            $(".checkout-card-header").after(
-                cart.map(item => CheckoutItem(item)).join("")
-            )
-            $(".checkout-total").text(`${total} DH`)
-        }
-
-    </script>
+    @Scripts.Render("~/bundles/userTemplate")
+    @Scripts.Render("~/bundles/custom")
 
 
     @*@Scripts.Render("~/bundles/jquery")
