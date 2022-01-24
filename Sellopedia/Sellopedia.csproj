@@ -279,6 +279,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
+    <Content Include="Content\Custom\Custom.css" />
     <Content Include="Content\img\carousel-1.jpg" />
     <Content Include="Content\img\carousel-2.jpg" />
     <Content Include="Content\img\cat-1.jpg" />
@@ -422,6 +423,10 @@
     <Content Include="Content\scss\bootstrap\scss\_variables.scss" />
     <Content Include="Content\scss\style.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Custom\AutoComplete.js" />
+    <Content Include="Scripts\Custom\Cart.js" />
+    <Content Include="Scripts\Custom\PriceFilter.js" />
+    <Content Include="Scripts\Custom\StarsRating.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -480,7 +485,6 @@
     <Content Include="Views\User\MyProducts.cshtml" />
     <Content Include="Views\User\EditProduct.cshtml" />
     <Content Include="Views\User\ProductDetails.cshtml" />
-    <Content Include="Views\Shop\Feed.cshtml" />
     <Content Include="Views\Shop\Product.cshtml" />
     <Content Include="Views\Shop\CreateReview.cshtml" />
     <Content Include="Views\Shop\Cart.cshtml" />
