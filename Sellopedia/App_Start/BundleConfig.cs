@@ -40,6 +40,22 @@ namespace Sellopedia
                 "~/Content/js/main.js"));
 
             // --- Admin Template --- //
+            bundles.Add(new StyleBundle("~/Content/AdminTemplate").Include(
+                "~/Content/AdminTemplate/plugins/bower_components/chartist/dist/chartist.min.css",
+                "~/Content/AdminTemplate/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css",
+                "~/Content/AdminTemplate/css/style.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/adminTemplate").Include(
+                "~/Content/AdminTemplate/plugins/bower_components/jquery/dist/jquery.min.js",
+                "~/Content/AdminTemplate/bootstrap/dist/js/bootstrap.bundle.min.js",
+                "~/Content/AdminTemplate/js/app-style-switcher.js",
+                "~/Content/AdminTemplate/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js",
+                "~/Content/AdminTemplate/js/waves.js",
+                "~/Content/AdminTemplate/js/sidebarmenu.js",
+                "~/Content/AdminTemplate/js/custom.js",
+                "~/Content/AdminTemplate/plugins/bower_components/chartist/dist/chartist.min.js",
+                "~/Content/AdminTemplate/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js",
+                "~/Content/AdminTemplate/js/pages/dashboards/dashboard1.js"));
 
             //------------------------ Custom css/js/jquery ------------------------//
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
