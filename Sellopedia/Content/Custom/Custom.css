@@ -1,4 +1,7 @@
 ﻿
+/* colors var */
+
+
 /* -------------------- price filter slider -------------------- */
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
     border-radius: 50%;
@@ -9,7 +12,7 @@
 }
 
 .ui-widget-header {
-    background: #D19C97;
+    background: var(--primary);
     /*background: #f6931f;*/
 }
 
@@ -25,7 +28,7 @@
     position: relative;
     width: 1.1em;
     font-size: 35px;
-    /*color: #D19C97;*/
+    /*color: var(--primary);*/
 }
 
 .rating > span:hover,
@@ -39,11 +42,11 @@
     content: "\2605";
     position: absolute;
     left: 0;
-    color: #D19C97;
+    color: var(--primary);
 }
 
 .rating > span.hovered {
-color: #D19C97;
+color: var(--primary);
 }
 
 .rating > span.hovered:hover {
@@ -53,5 +56,5 @@ color: #D19C97;
 
 .rating > span.hovered:before,
 .rating > span.hovered ~ span {
-    color: #D19C97;
+    color: var(--primary);
 }
