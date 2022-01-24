@@ -15,6 +15,9 @@ namespace Sellopedia.Models
         [Key, Column(Order = 1)]
         public int ProductId { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
         public decimal OrderPrice { get; set; }
         public int Quantity { get; set; }
 

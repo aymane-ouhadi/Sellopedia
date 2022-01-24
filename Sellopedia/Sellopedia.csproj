@@ -242,6 +242,10 @@
     <Compile Include="Migrations\202201161354434_Added user reference to cart.Designer.cs">
       <DependentUpon>202201161354434_Added user reference to cart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201231516427_Added order reference.cs" />
+    <Compile Include="Migrations\202201231516427_Added order reference.Designer.cs">
+      <DependentUpon>202201231516427_Added order reference.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -550,6 +554,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201161354434_Added user reference to cart.resx">
       <DependentUpon>202201161354434_Added user reference to cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201231516427_Added order reference.resx">
+      <DependentUpon>202201231516427_Added order reference.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResProduct.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
