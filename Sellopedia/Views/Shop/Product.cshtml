@@ -27,7 +27,7 @@
 
         }
         @*<i class="fas fa-star-half-alt"></i>
-        <i class="far fa-star"></i>*@
+            <i class="far fa-star"></i>*@
     </div>
     <hr />
 
@@ -139,7 +139,17 @@
 <h1>Submit a new review</h1>
 <h3 class="danger">@ViewBag.reviewError</h3>
 
-@Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id })
+@if (User.Identity.IsAuthenticated)
+{
+    @Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id })
+}
+else 
+{
+    <div class="alert alert-info"><a href="@Url.Action("Login", "Account")" class="alert-link">Login</a> to submit a review</div>
+    <div class="disabled">
+        @Html.Partial("CreateReview", new Sellopedia.Models.Review())
+    </div>
+}
 
 @*-----------------------------------------------*@
 

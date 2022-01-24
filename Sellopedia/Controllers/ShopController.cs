@@ -14,10 +14,38 @@ namespace Sellopedia.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
-        public ActionResult Index()
+        public ActionResult Index(string search, int? categoryId, int? minPrice, int? maxPrice)
         {
-            var products = db.Products.ToList();
-            return View(products);
+            // ! should show a message of no result found in the view
+
+            if(minPrice == null)
+            {
+                minPrice = 50;
+            }
+            if(maxPrice == null)
+            {
+                maxPrice = 5000;
+            }
+            ViewBag.minPrice = minPrice;
+            ViewBag.maxPrice = maxPrice;
+
+            var products = db.Products
+                .Where(p => p.OriginalPrice >= minPrice && p.OriginalPrice <= maxPrice);
+
+            if(categoryId != null)
+            {
+                var productsSearch = products.Where(p => p.CategoryId == categoryId).ToList();
+                return View(productsSearch);
+            }
+
+            if (search != null)
+            {
+                var productsSearch = products.Where(p => p.Name.Contains(search)).ToList();
+                return View(productsSearch);
+            }
+
+            //products = db.Products.ToList();
+            return View(products.ToList());
         }
 
         public ActionResult Product(int? id)
@@ -42,18 +70,18 @@ namespace Sellopedia.Controllers
             return View(product);
         }
 
+        [Authorize]
         public ActionResult Cart()
         {
             return View();
         }
 
-        [HttpGet]
-        public ActionResult CreateReview(int id)
+        [Authorize]
+        public ActionResult Checkout()
         {
-            Review review = new Review();
-            review.UserId = User.Identity.GetUserId();
-            review.ProductId = id;
-            return View(review);
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+
+            return View(user);
         }
 
         [Authorize]
@@ -114,6 +142,15 @@ namespace Sellopedia.Controllers
             };
 
             return Json(order, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SearchProduct(string search_text)
+        {
+            var result = db.Products.Where(p => p.Name.Contains(search_text))
+                .Select(p => p.Name)
+                .ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }
