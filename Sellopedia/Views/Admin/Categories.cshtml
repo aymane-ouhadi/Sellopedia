@@ -1,10 +1,184 @@
-﻿
+﻿@model IEnumerable<Sellopedia.Models.Category>
+
 @{
     ViewBag.Title = "Categories";
     Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
     Page.Title = "Categories";
 }
 
-<h2>Categories</h2>
+@section head
+{
 
-sqdfdsf
+    <link href="~/Content/IconPicker/fontawesome-iconpicker.min.css" rel="stylesheet">
+}
+<style>
+    .fade.in {
+        opacity: 1;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="white-box">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                    <h4 class="box-title">@Page.Title</h4>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                    <div class="d-md-flex">
+                        <ol class="breadcrumb ms-auto">
+                            <li><a href="@Url.Action("Index", "Admin")" class="fw-normal">Add new category</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div>
+                @foreach (var category in Model)
+                {
+                    <div class="icon-list-demo row w-100">
+                        <a href="#" class="text-decoration-none text-reset">
+                            <div class="col-sm-6 col-md-6 col-lg-3 f-icon w-100">
+                                <i class="@category.Icon"></i> @category.Name | @category.Icon
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="white-box">
+            <div class="row">
+                <h4 class="box-title text-center text-primary">Create New Category</h4>
+                <form id="form" action="/Admin/CreateCategory" method="post">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="categoryName">Name</label>
+                            <input type="text" class="form-control" id="categoryName" name="categoryName" 
+                                   value="" style="padding-left:10px" />
+                        </div>
+                        <div class="row form-group align-items-center">
+                            <label>Icon</label>
+                            <div class="col-2">
+                                <i class="fas fa-bars fa-2x picker-target"></i>
+                            </div>
+                            <div class="col-10">
+                                <input id="iconName" name="iconName" class="form-control icp icp-auto text-center btn-light" 
+                                       data-input-search="true" value="" placeholder="Pick an icon"
+                                       type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group mt-5">
+                            <div class="col-md-offset-2 text-center">
+                                <input id="submit" type="submit" value="Add New Category" class="btn btn-outline-primary" />
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                            <label for="iconName">Icon</label>
+                            <div class="col-md-10">
+                                <button class="btn btn-primary" type="button" id="open-modal" data-toggle="modal"
+                                        data-target="#icons-modal">
+                                    Launch demo modal
+                                </button>
+                            </div>
+                        </div>*@
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="modal fade" id="icons-modal" tabindex="-1" aria-labelledby="Choose an icon" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                <button class="btn-close" type="button" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="icons-list">
+                    icons list
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary" type="button">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+@section Scripts
+{
+    @* ------------------------- modal ------------------------- *@
+    @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"
+            integrity="sha512-3PRVLmoBYuBDbCEojg5qdmd9UhkPiyoczSFYjnLhFb2KAFsWWEMlAPt0olX1Nv7zGhDfhGEVkXsu51a55nlYmw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+
+    @* ---------------------- icon picker ---------------------- *@
+    <script src="~/Content/IconPicker/fontawesome-iconpicker.js"></script>
+
+
+    <script>
+        // ------------------ Icon Picker ------------------ //
+        // options
+        const iconPickerOptions = {
+            title: 'Choose an icon',
+        }
+
+        // set icon picker
+        $('#iconName').iconpicker(iconPickerOptions);
+
+        // change the icon in display
+        $('#iconName').on('iconpickerSelected', function (e) {
+            $('.picker-target').get(0).className = 'picker-target fa-2x ' +
+                e.iconpickerInstance.options.fullClassFormatter(e.iconpickerValue);
+        });
+
+
+        // ---------------- Form Validation ---------------- //
+        // validate input takes the id of the inputs to validate
+        // and set the danger & success borders
+        const validateInput = (...input) => {
+            var isValid = true;
+
+            input.map(field => {
+                if ($(field).val() == "") {
+                    $(field).addClass('border border-danger')
+                    $(field).removeClass('border border-success')
+                    isValid = false
+                }
+                else {
+                    $(field).removeClass('border border-danger')
+                    $(field).addClass('border border-success')
+                }
+            })
+
+            return isValid
+        }
+
+        // handle submit validation
+        $('#submit').click(function () {
+            return validateInput('#iconName', '#categoryName') 
+        })
+
+         
+
+        $(function () {
+            $('#open-modal').click(function () {
+                console.log('modal open')
+            })
+        })
+    </script>
+}

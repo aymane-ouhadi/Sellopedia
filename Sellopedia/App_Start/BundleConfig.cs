@@ -41,6 +41,7 @@ namespace Sellopedia
 
             // --- Admin Template --- //
             bundles.Add(new StyleBundle("~/Content/AdminTemplate").Include(
+                "~/Content/AdminTemplate/bootstrap/dist/css/bootstrap.css",
                 "~/Content/AdminTemplate/plugins/bower_components/chartist/dist/chartist.min.css",
                 "~/Content/AdminTemplate/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css",
                 "~/Content/AdminTemplate/css/style.min.css"));

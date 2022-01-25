@@ -23,13 +23,29 @@ namespace Sellopedia.Controllers
         [HttpGet]
         public ActionResult Categories()
         {
-            return View();
+            return View(db.Categories.ToList());
         }
 
+        //[HttpGet]
+        //public ActionResult CreateCategory()
+        //{
+        //    return View();
+        //}
+
         [HttpPost]
-        public ActionResult CreateCategory(Category model)
+        public ActionResult CreateCategory(string categoryName, string iconName)
         {
-            return View();
+            Category model = new Category
+            {
+                Name = categoryName,
+                Icon = iconName
+            };
+
+            db.Categories.Add(model);
+            db.SaveChanges();
+
+            //return Json(model, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Categories");
         }
 
         //--------------------------------------------- CRUD users

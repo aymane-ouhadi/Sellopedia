@@ -439,6 +439,8 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
     <Content Include="Content\Custom\Custom.css" />
+    <Content Include="Content\IconPicker\fontawesome-iconpicker.js" />
+    <Content Include="Content\IconPicker\fontawesome-iconpicker.min.css" />
     <Content Include="Content\img\carousel-1.jpg" />
     <Content Include="Content\img\carousel-2.jpg" />
     <Content Include="Content\img\cat-1.jpg" />
