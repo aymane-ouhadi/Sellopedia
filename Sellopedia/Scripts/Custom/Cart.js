@@ -61,8 +61,6 @@ const displayCartItems = () => {
 const updateCartSummary = () => {
     var cart = (JSON.parse(localStorage.getItem("Cart")) || [])
     var total = cart.reduce((previous, current) => previous + current.OrderPrice, 0)
-    console.clear()
-    console.log(total)
     $(".total").text(`${total} DH`)
     if (cart.length == 0) $(".proceed-to-checkout").attr("disabled", true)
     else $(".proceed-to-checkout").attr("disabled", false)
@@ -122,4 +120,18 @@ const displayCheckoutItems = () => {
         cart.map(item => CheckoutItem(item)).join("")
     )
     $(".checkout-total").text(`${total} DH`)
+}
+
+const confirmOrder = () => {
+    var orders = (JSON.parse(localStorage.getItem("Cart")) || [])
+    orders = orders.map(order => ({
+        UserId: order.UserId,
+        ProductId: order.CurrentProduct.ProductId,
+        OrderPrice: order.OrderPrice,
+        Quantity: order.Quantity,
+        CartId: 1
+    }))
+    var total = orders.reduce((previous, current) => previous + current.OrderPrice, 0)
+    console.log(total)
+    $.post("/Shop/ConfirmOrder", { Id: $("#Id").val(), Address: $("#Address").val(), Orders: orders, TotalPrice: total });
 }
