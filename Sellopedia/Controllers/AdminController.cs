@@ -80,5 +80,21 @@ namespace Sellopedia.Controllers
 
             return RedirectToAction("Users");
         }
+
+        public ActionResult TransactionsHistory()
+        {
+            List<Cart> carts = db.Carts.ToList();
+            foreach (Cart cart in carts)
+            {
+                cart.Orders = db.Orders.Where(p => p.CartId == cart.Id).ToList();
+            }
+            return View(carts);
+        }
+
+        public ActionResult TransactionDetails(int Id)
+        {
+            List<Order> orders = db.Orders.Where(p => p.CartId == Id).ToList();
+            return View(orders);
+        }
     }
 }
