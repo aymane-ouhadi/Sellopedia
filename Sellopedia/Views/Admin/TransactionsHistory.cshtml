@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Sellopedia.Models.Cart>
+
+@{
+    ViewBag.Title = "TransactionsHistory";
+    Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
+    Page.Title = "Transactions History";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="table-responsive">
+                <table class="table text-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">#</th>
+                            <th class="border-top-0">Buyer</th>
+                            <th class="border-top-0">Date</th>
+                            <th class="border-top-0">Time</th>
+                            <th class="border-top-0">Price</th>
+                            <th class="border-top-0">Country</th>
+                            <th class="border-top-0">City</th>
+                            <th class="border-top-0">Address</th>
+                            <th class="border-top-0">More details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cart in Model)
+                        {
+                            <tr>
+                                <td>@cart.Id</td>
+                                <td>@cart.Orders.ElementAt(0).User.FirstName @cart.Orders.ElementAt(0).User.LastName</td>
+                                <td>@cart.OrderDate.Date.ToString("dd/MM/yyyy")</td>
+                                <td>@cart.OrderDate.ToString("HH:mm:ss")</td>
+                                <td>@cart.TotalPrice DH</td>
+                                <td>@cart.Orders.ElementAt(0).User.Country</td>
+                                <td>@cart.Orders.ElementAt(0).User.City</td>
+                                <td>@cart.Address</td>
+                                <td class="text-center">
+                                    <a href="@Url.Action("TransactionDetails", new { Id = cart.Id })">
+                                        <i class="fas fa-info-circle text-primary" style="cursor: pointer;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

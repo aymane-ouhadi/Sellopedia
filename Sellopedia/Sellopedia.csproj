@@ -242,6 +242,26 @@
     <Compile Include="Migrations\202201161354434_Added user reference to cart.Designer.cs">
       <DependentUpon>202201161354434_Added user reference to cart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201231516427_Added order reference.cs" />
+    <Compile Include="Migrations\202201231516427_Added order reference.Designer.cs">
+      <DependentUpon>202201231516427_Added order reference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201242115521_Added is valid.cs" />
+    <Compile Include="Migrations\202201242115521_Added is valid.Designer.cs">
+      <DependentUpon>202201242115521_Added is valid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201242313576_Added IsWhiteListed.cs" />
+    <Compile Include="Migrations\202201242313576_Added IsWhiteListed.Designer.cs">
+      <DependentUpon>202201242313576_Added IsWhiteListed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201251110230_Added the delivery address to cart.cs" />
+    <Compile Include="Migrations\202201251110230_Added the delivery address to cart.Designer.cs">
+      <DependentUpon>202201251110230_Added the delivery address to cart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201251802531_Added PK constraint to order.cs" />
+    <Compile Include="Migrations\202201251802531_Added PK constraint to order.Designer.cs">
+      <DependentUpon>202201251802531_Added PK constraint to order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -893,6 +913,10 @@
     <Content Include="Views\Shared\AdminTemplate\_Layout_Admin.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\Categories.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Admin\BannedUsers.cshtml" />
+    <Content Include="Views\Admin\TransactionsHistory.cshtml" />
+    <Content Include="Views\Admin\TransactionDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -960,6 +984,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201161354434_Added user reference to cart.resx">
       <DependentUpon>202201161354434_Added user reference to cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201231516427_Added order reference.resx">
+      <DependentUpon>202201231516427_Added order reference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201242115521_Added is valid.resx">
+      <DependentUpon>202201242115521_Added is valid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201242313576_Added IsWhiteListed.resx">
+      <DependentUpon>202201242313576_Added IsWhiteListed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201251110230_Added the delivery address to cart.resx">
+      <DependentUpon>202201251110230_Added the delivery address to cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201251802531_Added PK constraint to order.resx">
+      <DependentUpon>202201251802531_Added PK constraint to order.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResProduct.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

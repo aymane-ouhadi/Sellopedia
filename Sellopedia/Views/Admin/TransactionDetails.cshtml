@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Sellopedia.Models.Order>
+
+@{
+    ViewBag.Title = "TransactionDetails";
+    Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
+    Page.Title = $"Transaction #{Model.ElementAt(0).Id}";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="table-responsive">
+                <table class="table text-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">Order #</th>
+                            <th class="border-top-0">Product</th>
+                            <th class="border-top-0">Seller</th>
+                            <th class="border-top-0">Buyer</th>
+                            <th class="border-top-0">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model)
+                        {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.Product.Name</td>
+                            @if (order.User.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
+                            {
+                                <td>@order.User.FirstName @order.User.LastName</td>
+                            }
+                            else
+                            {
+                                <td>@order.User.UserName</td>
+                            }
+                            @if (order.User.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
+                            {
+                                <td>@order.User.FirstName @order.User.LastName</td>
+                            }
+                            else
+                            {
+                                <td>@order.User.UserName</td>
+                            }
+                            <td>@order.OrderPrice DH</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

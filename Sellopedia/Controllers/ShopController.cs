@@ -84,6 +84,38 @@ namespace Sellopedia.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        public ActionResult ConfirmOrder(string Id, string Address, IList<Order> Orders, decimal TotalPrice)
+        {
+            //creating the cart and saving it in the database
+            Cart cart = new Cart()
+            {
+                TotalPrice = TotalPrice,
+                OrderDate = DateTime.Now,
+                UserId = Id,
+                Address = Address
+            };
+            db.Carts.Add(cart);
+            db.SaveChanges();
+
+            
+            foreach(Order order in Orders)
+            {
+                //adding the foreign key to each order and saving it in the database
+                order.CartId = cart.Id;
+                db.Orders.Add(order);
+                db.SaveChanges();
+
+                //modifying the quantity of the products
+                Product product = db.Products.Find(order.ProductId);
+                product.Quantity -= order.Quantity;
+                db.SaveChanges();
+            }
+
+
+            return Redirect("Index");
+        }
+
         [Authorize]
         [HttpPost]
         public ActionResult CreateReview(Review model)

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Sellopedia.Controllers
 {
+    //--------------------------------------------- CRUD Categories
     //[Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
@@ -79,6 +80,55 @@ namespace Sellopedia.Controllers
 
             TempData["delete_success"] = $"Deleted category <strong>\"{model.Name}\"</strong> successfully.";
             return RedirectToAction("Categories");
+        }
+
+        //--------------------------------------------- CRUD users
+        public ActionResult Users()
+        {
+            return View(db.Users.Where(m => m.IsValid == true).ToList());
+        }
+
+        public ActionResult BannedUsers()
+        {
+            return View(db.Users.Where(m => m.IsValid == false).ToList());
+        }
+
+        public ActionResult EditValidity(string id)
+        {
+            var user = db.Users.Find(id);
+            user.IsValid = !user.IsValid;
+            user.IsWhiteListed = false;
+            db.SaveChanges();
+
+            if (user.IsValid) {
+                return RedirectToAction("BannedUsers");
+            }
+            return RedirectToAction("Users");
+        }
+
+        public ActionResult EditWhiteListing(string id)
+        {
+            var user = db.Users.Find(id);
+            user.IsWhiteListed = !user.IsWhiteListed;
+            db.SaveChanges();
+
+            return RedirectToAction("Users");
+        }
+
+        public ActionResult TransactionsHistory()
+        {
+            List<Cart> carts = db.Carts.ToList();
+            foreach (Cart cart in carts)
+            {
+                cart.Orders = db.Orders.Where(p => p.CartId == cart.Id).ToList();
+            }
+            return View(carts);
+        }
+
+        public ActionResult TransactionDetails(int Id)
+        {
+            List<Order> orders = db.Orders.Where(p => p.CartId == Id).ToList();
+            return View(orders);
         }
     }
 }

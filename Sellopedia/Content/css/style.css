@@ -19,7 +19,7 @@
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #2196F3;
+  --primary: #3167eb;
   --secondary: #EDF1FF;
   --success: #28a745;
   --info: #17a2b8;
@@ -2364,7 +2364,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary {
-  color: #212529;
+  color: var(--white);
   background-color: var(--primary);
   border-color: var(--primary);
 }
@@ -6100,7 +6100,7 @@ a.close.disabled {
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #BBDEFB !important;
+    background-color: var(--primary) !important;
 }
 
 .bg-secondary {

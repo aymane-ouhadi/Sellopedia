@@ -11,9 +11,10 @@
             <div class="mb-4">
                 <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
                 <div class="row">
+                    @Html.HiddenFor(model => model.Id)
                     <div class="col-md-6 form-group">
                         @Html.LabelFor(model => model.FirstName)
-                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @Value = Model.FirstName, @disabled = "disabled"} })
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @Value = Model.FirstName, @disabled = "disabled" } })
                     </div>
                     <div class="col-md-6 form-group">
                         @Html.LabelFor(model => model.LastName)
@@ -28,10 +29,6 @@
                         @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @Value = Model.PhoneNumber } })
                     </div>
                     <div class="col-md-6 form-group">
-                        <label>Address Line 1</label>
-                        <input class="form-control" type="text" placeholder="123 Street">
-                    </div>
-                    <div class="col-md-6 form-group">
                         @Html.LabelFor(model => model.Country)
                         @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control", @Value = Model.Country } })
                     </div>
@@ -39,56 +36,11 @@
                         @Html.LabelFor(model => model.City)
                         @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", @Value = Model.City } })
                     </div>
-                </div>
-            </div>
-            <div class="collapse mb-4" id="shipping-address">
-                <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
-                <div class="row">
                     <div class="col-md-6 form-group">
-                        <label>First Name</label>
-                        <input class="form-control" type="text" placeholder="John">
+                        <label>Delivery Address</label>
+                        <input id="Address" class="form-control" type="text">
                     </div>
-                    <div class="col-md-6 form-group">
-                        <label>Last Name</label>
-                        <input class="form-control" type="text" placeholder="Doe">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>E-mail</label>
-                        <input class="form-control" type="text" placeholder="example@email.com">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Mobile No</label>
-                        <input class="form-control" type="text" placeholder="+123 456 789">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Address Line 1</label>
-                        <input class="form-control" type="text" placeholder="123 Street">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Address Line 2</label>
-                        <input class="form-control" type="text" placeholder="123 Street">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Country</label>
-                        <select class="custom-select">
-                            <option selected>United States</option>
-                            <option>Afghanistan</option>
-                            <option>Albania</option>
-                            <option>Algeria</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>City</label>
-                        <input class="form-control" type="text" placeholder="New York">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>State</label>
-                        <input class="form-control" type="text" placeholder="New York">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>ZIP Code</label>
-                        <input class="form-control" type="text" placeholder="123">
-                    </div>
+                    <button id="place-order" class="btn btn-lg btn-block btn-primary my-3 py-3" onclick="confirmOrder()">Place Order</button>
                 </div>
             </div>
         </div>
@@ -107,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card border-secondary mb-5">
+            @*<div class="card border-secondary mb-5">
                 <div class="card-header bg-secondary border-0">
                     <h4 class="font-weight-semi-bold m-0">Payment</h4>
                 </div>
@@ -134,7 +86,7 @@
                 <div class="card-footer border-secondary bg-transparent">
                     <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
                 </div>
-            </div>
+            </div>*@
         </div>
     </div>
 </div>
