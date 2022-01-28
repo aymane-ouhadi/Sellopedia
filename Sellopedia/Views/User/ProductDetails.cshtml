@@ -4,6 +4,8 @@
     ViewBag.Title = "ProductDetails";
 }
 
+<!-- ============================ OLD COMPONENT ================================= -->
+
 <h2>ProductDetails</h2>
 
 <div>
@@ -11,13 +13,13 @@
     <hr />
 
     reviews:  @Model.Reviews.Count
-    @foreach(var review in Model.Reviews)
-            {
-                <div>
-                    <h3>score @review.Score</h3>
-                    <h4>"@review.Message"</h4>
-                </div>
-            }
+    @foreach (var review in Model.Reviews)
+    {
+        <div>
+            <h3>score @review.Score</h3>
+            <h4>"@review.Message"</h4>
+        </div>
+    }
 
     <div class="form-group">
         @foreach (var productImage in Model.ProductImages)
@@ -92,3 +94,7 @@
     @Html.ActionLink("Edit", "EditProduct", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "MyProducts")
 </p>
+
+<!-- ============================ OLD COMPONENT END ================================= -->
+
+

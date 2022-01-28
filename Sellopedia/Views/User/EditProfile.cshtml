@@ -167,7 +167,7 @@
 
 <!-- ============================ OLD PAGE ================================= -->
 
-<h2>EditProfile</h2>
+@*<h2>EditProfile</h2>
 <h3 class="bg-danger">@ViewBag.error</h3>
 
 @using (Html.BeginForm())
@@ -334,7 +334,6 @@
             </div>
         </div>
 
-        @* Hidden input for username to validate form submission *@
         <div class="form-group">
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
@@ -351,7 +350,7 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 <!-- ============================ OLD PAGE ================================= -->
 

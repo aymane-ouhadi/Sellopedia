@@ -273,8 +273,16 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap.css" />
+    <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
+    <Content Include="Content\css\ui.css" />
+    <Content Include="Content\icons\avatar1.jpg" />
+    <Content Include="Content\icons\avatar2.jpg" />
+    <Content Include="Content\icons\avatar3.jpg" />
+    <Content Include="Content\icons\stars-active.svg" />
+    <Content Include="Content\icons\starts-disable.svg" />
     <Content Include="Content\img\carousel-1.jpg" />
     <Content Include="Content\img\carousel-2.jpg" />
     <Content Include="Content\img\cat-1.jpg" />
