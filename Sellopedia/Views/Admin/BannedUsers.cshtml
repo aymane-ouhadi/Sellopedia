@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Sellopedia.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Banned Users";
+    Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
+    Page.Title = "Banned Users";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="table-responsive">
+                <table class="table text-nowrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0"></th>
+                            <th class="border-top-0">Name</th>
+                            <th class="border-top-0">Gender</th>
+                            <th class="border-top-0">Country</th>
+                            <th class="border-top-0">City</th>
+                            <th class="border-top-0">Type</th>
+                            <th class="border-top-0">Unban</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                        <tr>
+                            <td>
+                                <img src="@user.ProfileImage" style="border-radius:50%; width: 3rem; object-fit: contain;" />
+                            </td>
+                            @if (user.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
+                            {
+                                <td>@user.FirstName @user.LastName</td>
+                            }
+                            else
+                            {
+                                <td>@user.UserName</td>
+                            }
+                            <td>@user.Gender</td>
+                            <td>@user.Country</td>
+                            <td>@user.City</td>
+                            <td>@user.AccountType</td>
+                            <td>
+                                <a href="@Url.Action("EditValidity", new { id = user.Id })">
+                                    <i class="far fa-check-circle text-success"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

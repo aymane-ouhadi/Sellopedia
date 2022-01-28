@@ -5,18 +5,6 @@
 }
 
 @*--------------------------- NEW PAGE ----------------------------*@
-<style>
-    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-        border-radius: 50%;
-    }
-    .ui-widget-content {
-        background: #dddddd !important;
-    }
-    .ui-widget-header {
-        background: #D19C97;
-        /*background: #f6931f;*/
-    }
-</style>
 @*--------------------SIDE BAR*@
 <div class="container-fluid pt-5">
     <div class="row px-xl-5">
@@ -34,7 +22,7 @@
                         </p>
                         <p>
                             <label for="price">Price range:</label>
-                            <input disabled type="text" id="price" name="price" readonly style="border: 0; color: #D19C97; font-weight: bold;">
+                            <input disabled type="text" id="price" name="price" readonly style="border: 0; color: #2196F3; font-weight: bold;">
                             <input type="hidden" id="minPrice" name="minPrice" value="@ViewBag.minPrice" />
                             <input type="hidden" id="maxPrice" name="maxPrice" value="@ViewBag.maxPrice" />
                         </p>

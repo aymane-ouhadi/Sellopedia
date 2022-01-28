@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -21,6 +22,9 @@ namespace Sellopedia.Models
         public string Country { get; set; }
         public AccountType AccountType { get; set; }
         public string ProfileImage { get; set; }
+        public bool IsValid { get; set; }
+
+        public bool IsWhiteListed { get; set; }
 
         //------- Navigation Properties
         //--- Product
@@ -40,6 +44,13 @@ namespace Sellopedia.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public ApplicationUser()
+        {
+            this.IsValid = true;
+            this.IsWhiteListed = false;
+        }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -57,6 +68,8 @@ namespace Sellopedia.Models
         object placeHolderVariable;
         public System.Data.Entity.DbSet<Sellopedia.Models.Product> Products { get; set; }
 
+        public System.Data.Entity.DbSet<Sellopedia.Models.Cart> Carts { get; set; }
+
         public System.Data.Entity.DbSet<Sellopedia.Models.Order> Orders { get; set; }
 
         public System.Data.Entity.DbSet<Sellopedia.Models.Review> Reviews { get; set; }
@@ -64,6 +77,5 @@ namespace Sellopedia.Models
         public System.Data.Entity.DbSet<Sellopedia.Models.ProductImage> ProductImages { get; set; }
 
         public System.Data.Entity.DbSet<Sellopedia.Models.Category> Categories { get; set; }
-
     }
 }

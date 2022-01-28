@@ -187,6 +187,16 @@ namespace Sellopedia.Controllers
             return RedirectToAction("MyProducts");
         }
 
+        [HttpPost]
+        public ActionResult DeleteProduct(int id)
+        {
+            Product product = db.Products.Find(id);
+            db.Products.Remove(product);
+            db.SaveChanges();
+
+            return RedirectToAction("MyProducts");
+        }
+
 
         //--------- Products -------------//
         // GET: Products/Details/5
