@@ -90,16 +90,16 @@
                         @Html.HiddenFor(model => model.Score, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
 
-                    @if (ViewBag.User.AccountType == 0)
+                    @if (Model.User.AccountType == 0)
                     {
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>First Name</label>
-                                <input class="form-control" value="@ViewBag.User.FirstName" />
+                                <input class="form-control" value="@Model.User.FirstName" />
                             </div> <!-- form-group end.// -->
                             <div class="form-group col-md-6">
                                 <label>Last Name</label>
-                                <input class="form-control" value="@ViewBag.User.LastName" />
+                                <input class="form-control" value="@Model.User.LastName" />
                             </div> <!-- form-group end.// -->
                         </div><!-- form-row.// -->
                     }
@@ -108,7 +108,7 @@
                         <div class="form-row">
                             <div class="col form-group">
                                 <label>Organisation Name</label>
-                                <input class="form-control" value="@ViewBag.User.UserName" />
+                                <input class="form-control" value="@Model.User.UserName" />
                             </div> <!-- form-group end.// -->
                         </div> <!-- form-row.// -->
                     }
@@ -116,7 +116,7 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label>Email</label>
-                            <input class="form-control" value="@ViewBag.User.Email" />
+                            <input class="form-control" value="@Model.User.Email" />
                         </div> <!-- form-group end.// -->
                     </div> <!-- form-row.// -->
 

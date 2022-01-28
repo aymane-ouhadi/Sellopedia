@@ -172,13 +172,13 @@
 
         @if (User.Identity.IsAuthenticated)
         {
-            @Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id })
+            @Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id, User = ViewBag.User })
         }
         else
         {
             <div class="alert alert-info"><a href="@Url.Action("Login", "Account")" class="alert-link">Login</a> to submit a review</div>
             <div class="disabled">
-                @Html.Partial("CreateReview", new Sellopedia.Models.Review())
+                @Html.Partial("CreateReview", new Sellopedia.Models.Review() { User = new Sellopedia.Models.ApplicationUser() })
             </div>
         }
 

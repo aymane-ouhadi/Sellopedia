@@ -851,6 +851,7 @@
     <Content Include="Content\AdminTemplate\scss\widgets\steamline.scss" />
     <Content Include="Content\AdminTemplate\scss\widgets\widgets.scss" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Custom\AdvancedSearchAdmin.js" />
     <Content Include="Scripts\Custom\AutoComplete.js" />
     <Content Include="Scripts\Custom\Cart.js" />
     <Content Include="Scripts\Custom\PriceFilter.js" />
