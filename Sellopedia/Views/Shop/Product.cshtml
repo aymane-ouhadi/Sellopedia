@@ -4,157 +4,441 @@
     ViewBag.Title = "ProductDetails";
 }
 
-<h2>ProductDetails</h2>
 
-<div>
-    <h4>Product</h4>
-    <h5>Product Rating: @ViewBag.ProductRating</h5>
-    <div class="text-primary mb-2">
-        @for (int i = 1; i <= 5; i++)
-        {
-            if (i <= ViewBag.ProductRating)
-            {
-                <i class="fas fa-star"></i>
-            }
-            else if (i - 0.5 <= ViewBag.ProductRating)
-            {
-                <i class="fas fa-star-half-alt"></i>
-            }
-            else
-            {
-                <i class="far fa-star"></i>
-            }
 
-        }
-        @*<i class="fas fa-star-half-alt"></i>
-            <i class="far fa-star"></i>*@
+<!-- ============================ New COMPONENT ================================= -->
+<section class="section-content padding-y bg">
+    <div class="container">
+        <div class="card">
+            <div class="row no-gutters">
+                <aside class="col-md-6">
+                    <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="w-100 h-100" src="@Model.ProductImages.ElementAt(0).Image" alt="Image">
+                            </div>
+                            @foreach (var productImage in Model.ProductImages)
+                            {
+                                <div class="carousel-item">
+                                    <img class="w-100 h-100" src="@productImage.Image" alt="Image">
+                                </div>
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                            <i class="fa fa-2x fa-angle-left text-dark"></i>
+                        </a>
+                        <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                            <i class="fa fa-2x fa-angle-right text-dark"></i>
+                        </a>
+                    </div>
+                </aside>
+                <main class="col-md-6 border-left">
+                    <article class="content-body">
+
+                        <h2 class="title">@Model.Name</h2>
+                        @{ var rating_percent = @ViewBag.ProductRating * 100 / 5; }
+                        <div class="rating-wrap my-3">
+                            <ul class="rating-stars">
+                                <li style="width:@rating_percent%" class="stars-active">
+                                    <img src="~/Content/icons/stars-active.svg" alt="">
+                                </li>
+                                <li>
+                                    <img src="~/Content/icons/starts-disable.svg" alt="">
+                                </li>
+                            </ul>
+                            <small class="label-rating text-muted">@Model.Reviews.Count  review</small>
+                            <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+                        </div> <!-- rating-wrap.// -->
+
+                        <div class="mb-3">
+                            <var class="price h4">@Model.OriginalPrice MAD</var>
+                            <del class="price-old h3">@Model.DiscountPrice</del>
+                        </div>
+
+                        <p>@Model.Description is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</p>
+
+                        <dl class="row">
+                            <dt class="col-sm-3">Model#</dt>
+                            <dd class="col-sm-9">Odsy-1000</dd>
+
+                            <dt class="col-sm-3">Color</dt>
+                            <dd class="col-sm-9">Brown</dd>
+
+                            <dt class="col-sm-3">Delivery</dt>
+                            <dd class="col-sm-9">Russia, USA, and Europe </dd>
+                        </dl>
+
+                        <hr>
+                        <div class="row">
+                            <div class="form-group col-md flex-grow-0">
+                                <label>Quantity</label>
+                                <div class="input-group mb-3 input-spinner">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-light" type="button" id="button-plus"> + </button>
+                                    </div>
+                                    <input type="text" class="form-control" value="1">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+                                    </div>
+                                </div>
+                            </div> <!-- col.// -->
+                            <div class="form-group col-md">
+                                <label>Select size</label>
+                                <div class="mt-2">
+                                    <label class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" name="select_size" checked="" class="custom-control-input">
+                                        <div class="custom-control-label">Small</div>
+                                    </label>
+
+                                    <label class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" name="select_size" class="custom-control-input">
+                                        <div class="custom-control-label">Medium</div>
+                                    </label>
+
+                                    <label class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" name="select_size" class="custom-control-input">
+                                        <div class="custom-control-label">Large</div>
+                                    </label>
+
+                                </div>
+                            </div> <!-- col.// -->
+                        </div> <!-- row.// -->
+                        <a href="#" class="btn  btn-primary"> Buy now </a>
+                        <a href="#" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+                    </article> <!-- product-info-aside .// -->
+                </main> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
     </div>
-    <hr />
+</section>
+<!-- ============================ NEW COMPONENT END ================================= -->
+<!-- ============================ NEW REVIEW SECTION 1 ================================= -->
 
-    <div class="form-group">
-        @foreach (var productImage in Model.ProductImages)
-        {
-            <div class="col-md-10">
-                <img src="@productImage.Image" height="400" style="object-fit:contain" />
-            </div>
-        }
-    </div>
-    <hr />
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
+<section class="section-content padding-y bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <header class="section-heading">
+                    <h3>Product Reviews </h3>
+                    <div class="rating-wrap">
+                        <ul class="rating-stars stars-lg">
+                            <li style="width:@rating_percent%" class="stars-active">
+                                <img src="~/Content/icons/stars-active.svg" alt="">
+                            </li>
+                            <li>
+                                <img src="~/Content/icons/starts-disable.svg" alt="">
+                            </li>
+                        </ul>
+                        <strong class="label-rating text-lg"> <span class="text-muted">| @Model.Reviews.Count reviews</span></strong>
+                    </div>
+                </header>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
+                @foreach (var review in Model.Reviews)
+                {
+                    var score_percent = review.Score * 100 / 5;
+                    <article class="box mb-3">
+                        <div class="icontext w-100">
+                            <img src="@review.User.ProfileImage" class="img-xs icon rounded-circle">
+                            <div class="text">
+                                <span class="date text-muted float-md-right">24.04.2020 </span>
+                                <h6 class="mb-1">@review.User.FirstName @review.User.LastName </h6>
+                                <ul class="rating-stars">
+                                    <li style="width:@score_percent%" class="stars-active">
+                                        <img src="~/Content/icons/stars-active.svg" alt="">
+                                    </li>
+                                    <li>
+                                        <img src="~/Content/icons/starts-disable.svg" alt="">
+                                    </li>
+                                </ul>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OriginalPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OriginalPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiscountPrice)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiscountPrice)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Quantity)
-        </dd>
-
-    </dl>
-</div>
-
-<hr />
-<h2>Reviews section</h2>
-<h4 class="mb-4">@Model.Reviews.Count review for "@Model.Name"</h4>
-@foreach (var review in Model.Reviews)
-{
-    <div class="col-md-6">
-        <div class="media mb-4">
-            <img src="@review.User.ProfileImage" alt="Username" class="img-fluid mr-3 mt-1" style="width: 45px;">
-            <div class="media-body">
-                <h6>@review.User.FirstName @review.User.LastName<small> - <i>01 Jan 2045</i></small></h6>
-                <div class="text-primary mb-2">
-                    @for (int i = 1; i <= 5; i++)
-                    {
-                        if (i <= review.Score)
-                        {
-                            <i class="fas fa-star"></i>
-                        }
-                        else
-                        {
-                            <i class="far fa-star"></i>
-                        }
-
-                    }
-                    @*<i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i>*@
-                </div>
-                <p>@review.Score</p>
-                <p>@review.Message</p>
+                            </div>
+                        </div> <!-- icontext.// -->
+                        <div class="mt-3">
+                            <p>
+                                @review.Message Dummy comment Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip
+                            </p>
+                        </div>
+                    </article>
+                }
             </div>
         </div>
+
+
+        @* ------------------- REVIEW -------------------*@
+        <h3 class="danger">@ViewBag.reviewError</h3>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id })
+        }
+        else
+        {
+            <div class="alert alert-info"><a href="@Url.Action("Login", "Account")" class="alert-link">Login</a> to submit a review</div>
+            <div class="disabled">
+                @Html.Partial("CreateReview", new Sellopedia.Models.Review())
+            </div>
+        }
+
+
     </div>
-}
-<hr />
+</section>
 
-@* ------------------- REVIEW -------------------*@
-<h1>Submit a new review</h1>
-<h3 class="danger">@ViewBag.reviewError</h3>
 
-@if (User.Identity.IsAuthenticated)
-{
-    @Html.Partial("CreateReview", new Sellopedia.Models.Review() { UserId = ViewBag.User.Id, ProductId = Model.Id })
-}
-else 
-{
-    <div class="alert alert-info"><a href="@Url.Action("Login", "Account")" class="alert-link">Login</a> to submit a review</div>
-    <div class="disabled">
-        @Html.Partial("CreateReview", new Sellopedia.Models.Review())
+<!-- ========================= NEW REVIEW SECTION 1 END ========================= -->
+
+
+
+<!-- ============================ OLD COMPONENT ================================= -->
+@*<h2>ProductDetails</h2>
+
+    <div>
+        <h4>Product</h4>
+        <h5>Product Rating: @ViewBag.ProductRating</h5>
+        <ul class="rating-stars">
+            <li style="width:@rating_percent%" class="stars-active">
+                <img src="~/Content/icons/stars-active.svg" alt="">
+            </li>
+            <li>
+                <img src="~/Content/icons/starts-disable.svg" alt="">
+            </li>
+        </ul>
+        <div class="text-primary mb-2">
+            @for (int i = 1; i <= 5; i++)
+            {
+                if (i <= ViewBag.ProductRating)
+                {
+                    <i class="fas fa-star"></i>
+                }
+                else if (i - 0.5 <= ViewBag.ProductRating)
+                {
+                    <i class="fas fa-star-half-alt"></i>
+                }
+                else
+                {
+                    <i class="far fa-star"></i>
+                }
+
+            }
+        </div>
+        <hr />
+
+        <div class="form-group">
+            @foreach (var productImage in Model.ProductImages)
+            {
+                <div class="col-md-10">
+                    <img src="@productImage.Image" height="400" style="object-fit:contain" />
+                </div>
+            }
+        </div>
+        <hr />
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.OriginalPrice)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OriginalPrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DiscountPrice)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DiscountPrice)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Quantity)
+            </dd>
+
+        </dl>
     </div>
-}
 
-@*-----------------------------------------------*@
+    <hr />
+    <h2>Reviews section</h2>
+    <h4 class="mb-4">@Model.Reviews.Count review for "@Model.Name"</h4>
+    @foreach (var review in Model.Reviews)
+    {
+        <div class="col-md-6">
+            <div class="media mb-4">
+                <img src="@review.User.ProfileImage" alt="Username" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                <div class="media-body">
+                    <h6>@review.User.FirstName @review.User.LastName<small> - <i>01 Jan 2045</i></small></h6>
+                    <div class="text-primary mb-2">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= review.Score)
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                            else
+                            {
+                                <i class="far fa-star"></i>
+                            }
+
+                        }
+                    </div>
+                    <p>@review.Score</p>
+                    <p>@review.Message</p>
+                </div>
+            </div>
+        </div>
+    }
+    <hr />*@
+<!-- ============================ OLD COMPONENT END ================================= -->
 
 
-<p>
-    @*@Html.ActionLink("Edit", "EditProduct", new { id = Model.Id }) |*@
-    @Html.ActionLink("Back to Shop", "Feed")
-</p>
+
+<!-- ============================ Product TEST COMPONENT ================================= -->
+<!--<section class="section-content padding-y bg">
+    <div class="container">
+        <div class="card">
+            <div class="row no-gutters">
+                <aside class="col-md-6">-->
+@*<div id="product-carousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="w-100 h-100" src="~/Content/img/product-1.jpg" alt="Image">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 h-100" src="~/Content/img/product-2.jpg" alt="Image">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 h-100" src="~/Content/img/product-4.jpg" alt="Image">
+            </div>
+            <div class="carousel-item">
+                <img class="w-100 h-100" src="~/Content/img/product-3.jpg" alt="Image">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+            <i class="fa fa-2x fa-angle-left text-dark"></i>
+        </a>
+        <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+            <i class="fa fa-2x fa-angle-right text-dark"></i>
+        </a>
+    </div>*@
+<!--</aside>
+<main class="col-md-6 border-left">
+    <article class="content-body">
+
+        <h2 class="title">Off-White Odsy-1000 Low-Top Sneakers</h2>
+
+        <div class="rating-wrap my-3">
+            <ul class="rating-stars">
+                <li style="width:80%" class="stars-active">
+                    <img src="~/Content/icons/stars-active.svg" alt="">
+                </li>
+                <li>
+                    <img src="~/Content/icons/starts-disable.svg" alt="">
+                </li>
+            </ul>
+            <small class="label-rating text-muted">132 reviews</small>
+            <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 orders </small>
+        </div>-->
+ <!-- rating-wrap.// -->
+<!--<div class="mb-3">
+    <var class="price h4">$815.00</var>
+    <span class="text-muted">/per kg</span>
+</div>
+
+<p>Virgil Abloh’s Off-White is a streetwear-inspired collection that continues to break away from the conventions of mainstream fashion. Made in Italy, these black and brown Odsy-1000 low-top sneakers.</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Model#</dt>
+    <dd class="col-sm-9">Odsy-1000</dd>
+
+    <dt class="col-sm-3">Color</dt>
+    <dd class="col-sm-9">Brown</dd>
+
+    <dt class="col-sm-3">Delivery</dt>
+    <dd class="col-sm-9">Russia, USA, and Europe </dd>
+</dl>
+
+<hr>
+<div class="row">
+    <div class="form-group col-md flex-grow-0">
+        <label>Quantity</label>
+        <div class="input-group mb-3 input-spinner">
+            <div class="input-group-prepend">
+                <button class="btn btn-light" type="button" id="button-plus"> + </button>
+            </div>
+            <input type="text" class="form-control" value="1">
+            <div class="input-group-append">
+                <button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+            </div>
+        </div>
+    </div>-->
+ <!-- col.// -->
+<!--<div class="form-group col-md">
+    <label>Select size</label>
+    <div class="mt-2">
+        <label class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="select_size" checked="" class="custom-control-input">
+            <div class="custom-control-label">Small</div>
+        </label>
+
+        <label class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="select_size" class="custom-control-input">
+            <div class="custom-control-label">Medium</div>
+        </label>
+
+        <label class="custom-control custom-radio custom-control-inline">
+            <input type="radio" name="select_size" class="custom-control-input">
+            <div class="custom-control-label">Large</div>
+        </label>
+
+    </div>
+</div>-->
+ <!-- col.// -->
+<!--</div>--> <!-- row.// -->
+<!--<a href="#" class="btn  btn-primary"> Buy now </a>
+    <a href="#" class="btn  btn-outline-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+</article>-->
+ <!-- product-info-aside .// -->
+<!--</main>--> <!-- col.// -->
+<!--</div>--> <!-- row.// -->
+<!--</div>--> <!-- card.// -->
+<!--</div>
+</section>-->
+<!-- ============================ Product Test COMPONENT END ================================= -->

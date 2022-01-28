@@ -6,6 +6,84 @@
     Page.Title = "Users";
 }
 
+
+@section head
+{
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+}
+
+<div class="container">
+    <div class="row">
+        <div id="filter-panel" class="collapse filter-panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-inline" role="form">
+                        <!-- <div class="form-group">
+                            <label class="filter-col" style="margin-right:0;" for="pref-perpage">Rows per page:</label>
+                            <select id="pref-perpage" class="form-control">
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option selected="selected" value="10">10</option>
+                            </select>
+                        </div> <!-- form group [rows] -->
+                        <div class="form-group">
+                            <label class="filter-col" style="margin-right:0;" for="pref-search">Search:</label>
+                            <div class="input-group border">
+                                <input type="text" class="form-control border border-dark" id="search_text" placeholder="Search User">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-transparent text-primary btn btn-dark disabled">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div><!-- form group [search] -->
+                        <div class="form-group row">
+                            <div class="col">
+                                <label class="filter-col" style="margin-right:0;" for="filterby">Filter by:</label>
+                                <select id="filterby" class="form-control form-select">
+                                    <option value="" selected disabled>Select filter</option>
+                                    @*<option value="name">Name</option>*@
+                                    <option value="gender">Gender</option>
+                                    <option value="country">Country</option>
+                                    <option value="accounttype">Account Type</option>
+                                    <option value="whitelist">Whitelist</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="filter-col" style="margin-right:0;" for="orderby">Order by:</label>
+                                <select id="orderby" class="form-control form-select">
+                                    <option>Ascendent</option>
+                                    <option>Descendent</option>
+                                </select>
+                            </div>
+                        </div> <!-- form group [order by] -->
+                        <div class="form-group">
+                            <div class="checkbox" style="margin-left:10px; margin-right:10px;">
+                                <label><input type="checkbox"> Remember parameters</label>
+                            </div>
+                            <button type="submit" class="btn btn-outline-info filter-col">
+                                <span class="glyphicon glyphicon-record"></span> Apply
+                            </button>
+                            <button type="submit" id="clearFilters" class="btn btn-default text-dark filter-col">
+                                Clear filters
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#filter-panel">
+            <span class="glyphicon glyphicon-cog"></span> Advanced Search
+        </button>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-sm-12">
         <div class="white-box">
@@ -26,40 +104,42 @@
                     <tbody>
                         @foreach (var user in Model)
                         {
-                        <tr>
-                            <td>
-                                <img src="@user.ProfileImage" style="border-radius:50%; width: 3rem; object-fit: contain;"/>
-                            </td>
-                            @if (user.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
-                            {
-                                <td>@user.FirstName @user.LastName</td>
-                            }
-                            else
-                            {
-                                <td>@user.UserName</td>
-                            }
-                            <td>@user.Gender</td>
-                            <td>@user.Country</td>
-                            <td>@user.City</td>
-                            <td>@user.AccountType</td>
-                            <td>
-                                <a href="@Url.Action("EditValidity", new { id = user.Id })">
-                                    <i class="fas fa-ban text-danger"></i>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="@Url.Action("EditWhiteListing", new { id = user.Id })">
-                                    @if (!user.IsWhiteListed)
-                                    {
-                                        <i class="far fa-heart text-success"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="fas fa-heart text-success"></i>
-                                    }
-                                </a>
-                            </td>
-                        </tr>
+                            <tr data-name="@user.FirstName @user.LastName @user.UserName" data-gender="@user.Gender" 
+                                data-country="@user.Country" data-city="@user.City" data-accounttype="@user.AccountType"
+                                data-whitelist="@user.IsWhiteListed">
+                                <td>
+                                    <img src="@user.ProfileImage" style="border-radius:50%; width: 3rem; object-fit: contain;" />
+                                </td>
+                                @if (user.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
+                                {
+                                    <td>@user.FirstName @user.LastName</td>
+                                }
+                                else
+                                {
+                                    <td>@user.UserName</td>
+                                }
+                                <td>@user.Gender</td>
+                                <td class="country">@user.Country</td>
+                                <td class="city">@user.City</td>
+                                <td>@user.AccountType</td>
+                                <td>
+                                    <a href="@Url.Action("EditValidity", new { id = user.Id })">
+                                        <i class="fas fa-ban text-danger"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("EditWhiteListing", new { id = user.Id })">
+                                        @if (!user.IsWhiteListed)
+                                        {
+                                            <i class="far fa-heart text-success"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fas fa-heart text-success"></i>
+                                        }
+                                    </a>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -68,3 +148,146 @@
     </div>
 </div>
 
+@section Scripts
+{
+    
+
+    <script>
+        var data = $('tbody > tr')  // --- all the users int the page
+
+        const filterOrderBy = () => {
+            var selectValues = {
+                "name": [
+                    'Asc',
+                    'Des'
+                ],
+                "gender": [
+                    ...new Set(
+                        data.map((index, value) => {
+                            return value.dataset.gender
+                        })
+                    )
+                ],
+                "country": [
+                    ...new Set(
+                        data.map((index, value) => {
+                            return value.dataset.country
+                        })
+                    )
+                ],
+                "city": [
+                    ...new Set(
+                        data.map((index, value) => {
+                            return value.dataset.city
+                        })
+                    )
+                ],
+                "accounttype": [
+                    ...new Set(
+                        data.map((index, value) => {
+                            return value.dataset.accounttype
+                        })
+                    )
+                ],
+                "whitelist": [
+                    ...new Set(
+                        data.map((index, value) => {
+                            return value.dataset.whitelist
+                        })
+                    )
+                ]
+            };
+
+            const applyFilter = () => {
+                if ($filter.val() != null) {
+                    data
+                        .hide()
+                        .filter(function () {
+                            return $(this).data($filter.val()) == $order.val()
+                        })
+                        .show()
+                }
+                else {
+                    data.show()
+                }
+            }
+
+            var $filter = $('#filterby');
+            var $order = $('#orderby');
+
+            $filter.change(function () {
+                console.log($filter.val())
+                $order.empty().append(function () {
+                    var output = '';
+                    $.each(selectValues[$filter.val()], function (key, value) {
+                        output += '<option value=\"' + value + '\">' + value + '</option>';
+                    });
+                    return output;
+                });
+
+                // apply the filter on filterby change
+                applyFilter()
+            }).change();
+
+
+            // apply the filter on orderby change
+            $order.change(function () {
+                applyFilter()
+            })
+        }
+
+        const search = () => {
+            // ----------- Search ----------- //
+            const search_filter = (search_text) => {
+                data
+                    .hide()
+                    .filter(function () {
+                        return $(this).data('name').toLowerCase().includes(search_text.toLowerCase())
+                    })
+                    .show()
+            }
+
+            $("#searchLayout").on("input", function () {
+                let search_text = $(this).val()
+
+                search_filter(search_text)
+            });
+            // -------------------------------//
+        }
+
+        const clearFilters = () => {
+            $('#clearFilters').click(function (e) {
+                e.preventDefault()
+                $('#filterby').val('').trigger('change')
+            })
+        }
+
+
+        $(document).ready(function () {
+            $('#search_text').autocomplete({
+                source: function (req, res) {
+                    $.ajax({
+                        url: '/Admin/SearchUser',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: { search_text: req.term },
+                        success: function (data) {
+                            res($.map(data, function (item) {
+                                return { label: item, value: item }
+                            }))
+                        }
+                    })
+                }
+            })
+
+            filterOrderBy()
+            search()
+            clearFilters()
+            // --------------------------------------- //
+            // ----------- Filter ----------- //
+
+            // -------------------------------//
+        })
+
+    </script>
+}

@@ -76,7 +76,7 @@
                         <!-- ============================================================== -->
                         <li class=" in">
                             <form role="search" class="app-search d-none d-md-block me-3">
-                                <input type="text" placeholder="Search..." class="form-control mt-0">
+                                <input type="text" id="searchLayout" placeholder="Search..." class="form-control mt-0">
                                 <a href="" class="active">
                                     <i class="fa fa-search"></i>
                                 </a>
@@ -193,8 +193,15 @@
             <!-- ============================================================== -->
             <div class="page-breadcrumb bg-white">
                 <div class="row align-items-center">
-                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 w-100">
+                    <div class="col">
                         <h4 class="page-title">@Page.Title</h4>
+                    </div>
+                    <div class="col">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                                <li><a href="@Url.Action("Index", "Admin")" class="fw-normal">Dashboard</a></li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -234,8 +241,24 @@
     <!-- ============================================================== -->
 
 
+
     @Scripts.Render("~/bundles/AdminTemplate")
     @RenderSection("scripts", false)
+
+
+    <!-- jquery | jquery-ui | bootstrap | sparklines --- used in modal, autocomplete...-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"
+            integrity="sha512-3PRVLmoBYuBDbCEojg5qdmd9UhkPiyoczSFYjnLhFb2KAFsWWEMlAPt0olX1Nv7zGhDfhGEVkXsu51a55nlYmw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <!---->
+
 
     @*<script src="~/Content/AdminTemplate/plugins/bower_components/jquery/dist/jquery.min.js"></script>*@
     <!-- Bootstrap tether Core JavaScript -->

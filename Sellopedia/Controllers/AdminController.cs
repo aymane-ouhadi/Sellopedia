@@ -88,6 +88,31 @@ namespace Sellopedia.Controllers
             return View(db.Users.Where(m => m.IsValid == true).ToList());
         }
 
+        public JsonResult SearchUser(string search_text)
+        {
+            // firstname
+            var result = db.Users
+                .Where(u => u.FirstName.Contains(search_text))
+                .Select(u => u.FirstName)
+                .ToList();
+            // lastname
+            var result2 = db.Users
+                .Where(u => u.LastName.Contains(search_text))
+                .Select(u => u.LastName)
+                .ToList();
+            // username
+            var result3 = db.Users
+                .Where(u => u.UserName.Contains(search_text) && u.Email != u.UserName)
+                .Select(u => u.UserName)
+                .ToList();
+
+            // append results together and send them as json
+            result.AddRange(result2);
+            result.AddRange(result3);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult BannedUsers()
         {
             return View(db.Users.Where(m => m.IsValid == false).ToList());

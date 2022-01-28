@@ -30,7 +30,8 @@ namespace Sellopedia
             // --- User Template --- //
             bundles.Add(new StyleBundle("~/Content/userTemplate").Include(
                 "~/Content/lib/owlcarousel/assets/owl.carousel.min.css",
-                "~/Content/css/style.css"));
+                "~/Content/css/style.css",
+                "~/Content/css/ui.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/userTemplate").Include(
                 "~/Content/lib/easing/easing.min.js",
