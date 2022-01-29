@@ -2,30 +2,108 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="container-fluid jumbotron my-5">
+<!-- ============================ New HOME PAGE Jumbotron ================================= -->
+
+<div id="header-carousel" class="carousel slide mx-auto" style="width: 92.5%;" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" style="height: 600px;">
+            <img class="img-fluid" src="~/Content/Home Images/Electronics.jpg" alt="Image">
+            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                <div class="p-3" style="max-width: 700px;">
+                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">High Tech Electronics</h3>
+                    <a href="@Url.Action("Index", "Shop")" class="btn btn-light py-2 px-3">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item" style="height: 600px;">
+            <img class="img-fluid" src="~/Content/Home Images/Fashion.jpg" alt="Image">
+            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                <div class="p-3" style="max-width: 700px;">
+                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Moderm Fashion</h3>
+                    <a href="@Url.Action("Index", "Shop")" class="btn btn-light py-2 px-3">Shop Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item" style="height: 600px;">
+            <img class="img-fluid" src="~/Content/Home Images/Home6.jpg" alt="Image">
+            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                <div class="p-3" style="max-width: 700px;">
+                    <h4 class="text-light text-uppercase font-weight-medium mb-3">10% Off Your First Order</h4>
+                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">Home Appliance</h3>
+                    <a href="@Url.Action("Index", "Shop")" class="btn btn-light py-2 px-3">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+        <div class="btn" style="width: 45px; height: 45px;">
+            <span class="carousel-control-prev-icon mb-n2"></span>
+        </div>
+    </a>
+    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+        <div class="btn" style="width: 45px; height: 45px;">
+            <span class="carousel-control-next-icon mb-n2"></span>
+        </div>
+    </a>
+</div>
+
+<!-- ============================ New HOME PAGE Jumbotron END ================================= -->
+
+
+
+@*<div class="container-fluid jumbotron my-5 w-75 mx-auto">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+</div>*@
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<!-- ============================ New HOME PAGE COMPONENT ================================= -->
+<div class="row my-5 w-75 mx-auto">
+    <div class="col-md-3">
+        <article class="card card-body">
+            <figure class="text-center">
+                <span class="rounded-circle icon-md bg-primary"><i class="fa fa-user white"></i></span>
+                <figcaption class="pt-4">
+                    <h5 class="title">Creative Strategy</h5>
+                    <p> made to help explain to all concerned how a specific marketing strategy  </p>
+                </figcaption>
+            </figure> <!-- iconbox // -->
+        </article> <!-- panel-lg.// -->
+    </div><!-- col // -->
+    <div class="col-md-3">
+        <article class="card card-body">
+            <figure class="text-center">
+                <span class="rounded-circle icon-md bg-danger"><i class="fa fa-truck white"></i></span>
+                <figcaption class="pt-4">
+                    <h5 class="title">Fast Delivery</h5>
+                    <p> You’ll be sure to receive your order whenever and wherever you want </p>
+                </figcaption>
+            </figure> <!-- iconbox // -->
+        </article> <!-- panel-lg.// -->
+    </div> <!-- col // -->
+    <div class="col-md-3">
+        <article class="card card-body">
+            <figure class="text-center">
+                <span class="rounded-circle icon-md bg-success"><i class="fa fa-money-bill-alt white"></i></span>
+                <figcaption class="pt-4">
+                    <h5 class="title">Reasonable prices</h5>
+                    <p>Our main goal is to offer a high quality products for competitive prices</p>
+                </figcaption>
+            </figure> <!-- iconbox // -->
+        </article> <!-- panel-lg.// -->
+    </div> <!-- col // -->
+    <div class="col-md-3">
+        <article class="card card-body">
+            <figure class="text-center">
+                <span class="rounded-circle icon-md bg-dark"><i class="fa fa-lock white"></i></span>
+                <figcaption class="pt-4">
+                    <h5 class="title">highly secured</h5>
+                    <p>We offer a range of protective services to provide security and safety to our customers</p>
+                </figcaption>
+            </figure> <!-- iconbox // -->
+        </article> <!-- panel-lg.// -->
+    </div> <!-- col // -->
 </div>
+<!-- ============================  New HOME PAGE COMPONENT END ================================= -->

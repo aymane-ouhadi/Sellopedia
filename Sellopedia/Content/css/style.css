@@ -290,8 +290,9 @@ input[type="checkbox"] {
 }
 
 textarea {
-  overflow: auto;
-  resize: vertical;
+    overflow: auto;
+    resize: vertical;
+    border: 1px solid #ced4da;
 }
 
 fieldset {
