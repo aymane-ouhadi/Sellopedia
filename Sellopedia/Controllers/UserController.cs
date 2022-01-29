@@ -20,6 +20,7 @@ namespace Sellopedia.Controllers
 
         //--------- User Profile -------------//
         // GET: User/EditProfile
+        [Authorize]
         public ActionResult EditProfile()
         {
             string currentUserId = User.Identity.GetUserId();

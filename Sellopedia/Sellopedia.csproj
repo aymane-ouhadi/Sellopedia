@@ -858,6 +858,7 @@
     <Content Include="Scripts\Custom\AdvancedSearchAdmin.js" />
     <Content Include="Scripts\Custom\AutoComplete.js" />
     <Content Include="Scripts\Custom\Cart.js" />
+    <Content Include="Scripts\Custom\EditProfile.js" />
     <Content Include="Scripts\Custom\PriceFilter.js" />
     <Content Include="Scripts\Custom\StarsRating.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

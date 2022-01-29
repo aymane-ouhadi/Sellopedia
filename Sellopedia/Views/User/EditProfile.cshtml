@@ -19,7 +19,8 @@
             <form>
                 <div class="form-group">
                     <img src="@Model.ProfileImage.ToString()" width="85" height="80" class="img-sm rounded-circle border">
-                    <button class="btn"><i class="fa fa-edit"></i></button>
+                    <input type="file" id="basic_upload"/>
+                    <div class="btn" id="fancy_upload"><i class="fa fa-edit"></i></div>
                     @Html.EditorFor(model => model.ProfileImage, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })
                 </div>

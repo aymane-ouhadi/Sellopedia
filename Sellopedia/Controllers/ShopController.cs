@@ -65,7 +65,10 @@ namespace Sellopedia.Controllers
             int reviewsCount = product.Reviews.ToList().Count,
                 reviewsScoreTotal = product.Reviews.Select(r => r.Score).Sum();
 
+            int ordersCount = db.Orders.Where(p => p.ProductId == id).Count();
+
             ViewBag.ProductRating = (float)reviewsScoreTotal / reviewsCount;
+            ViewBag.ProductOrders = ordersCount;
 
             return View(product);
         }
