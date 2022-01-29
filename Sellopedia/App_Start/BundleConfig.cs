@@ -63,6 +63,7 @@ namespace Sellopedia
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                 "~/Scripts/Custom/AutoComplete.js",
                 "~/Scripts/Custom/StarsRating.js",
+                "~/Scripts/Custom/EditProfile.js",
                 "~/Scripts/Custom/PriceFilter.js",
                 "~/Scripts/Custom/Cart.js"));
 
