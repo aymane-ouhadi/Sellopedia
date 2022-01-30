@@ -6,5 +6,192 @@
     Page.Title = "Index";
 }
 
-<h2>Index</h2>
- <h3>Testing the new layout of the Admin Template "Ample Admin"</h3>
+@*<h2>Index</h2>
+    <h3>Testing the new layout of the Admin Template "Ample Admin"</h3>*@
+
+<a href="@Url.Action("Stats", "Admin")">JSON</a>
+
+<div class="container bg-white">
+    <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+</div>
+
+<!-- ============================================================== -->
+<!-- Three charts -->
+<!-- ============================================================== -->
+<div class="row justify-content-center">
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info">
+            <h3 class="box-title">Total Visit</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                <li>
+                    <div id="sparklinedash">
+                        <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
+                </li>
+                <li class="ms-auto"><span class="counter text-success">659</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info">
+            <h3 class="box-title">Total Page Views</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                <li>
+                    <div id="sparklinedash2">
+                        <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
+                </li>
+                <li class="ms-auto"><span class="counter text-purple">869</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="white-box analytics-info">
+            <h3 class="box-title">Unique Visitor</h3>
+            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                <li>
+                    <div id="sparklinedash3">
+                        <canvas width="67" height="30"
+                                style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                    </div>
+                </li>
+                <li class="ms-auto">
+                    <span class="counter text-info">911</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- PRODUCTS YEARLY SALES -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-6">
+        <div class="white-box">
+            <h3 class="box-title">Products By Categories</h3>
+            <div class="d-flex justify-content-center">
+                <canvas id="products_by_category" style="width:100%;max-width:700px"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="white-box">
+            <h3 class="box-title">Products</h3>
+            <div class="d-flex justify-content-center">
+                <canvas id="users" style="width:100%;max-width:700px"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+
+@section scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    </script>
+
+    <script>
+        var data = [
+            {
+                Name: "Vehicules",
+                Count: 4
+            },
+            {
+                Name: "Clothing",
+                Count: 3
+            },
+            {
+                Name: "Tools",
+                Count: 0
+            },
+            {
+                Name: "Tools & Workshop",
+                Count: 0
+            },
+            {
+                Name: "TV",
+                Count: 0
+            },
+            {
+                Name: "Coding",
+                Count: 0
+            },
+            {
+                Name: "Other edited once again",
+                Count: 0
+            }
+        ]
+
+        var xValues = data.map(item => item.Name.split(' '))
+        var yValues = data.map(item => item.Count)
+        var barColors = "#2f323e";
+
+        new Chart("products_by_category", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    label: "1",
+                    borderColor: "red",
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: true },
+                title: {
+                    display: false,
+                    text: "Products by categories"
+                }
+            }
+        });
+
+
+
+        // --------------- users
+        var users_data = {
+            //users: 8,
+            particular: 4,
+            organisation: 4,
+        }
+
+        var products_data = {
+            //products: 7,
+            on_sale: 4,
+            ordered: 4,
+        }
+
+
+        var xValues2 = Object.keys(products_data);
+        var yValues2 = Object.values(products_data);
+        var barColors2 = [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)',
+            "#b91d47",
+            "#00aba9",
+            "#2b5797",
+            "#e8c3b9",
+            "#1e7145"
+        ];
+
+        new Chart("users", {
+            type: "doughnut",
+            data: {
+                labels: xValues2,
+                datasets: [{
+                    backgroundColor: barColors2,
+                    data: yValues2
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "World Wide Wine Production 2018"
+                }
+            }
+        });
+    </script>
+}

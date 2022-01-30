@@ -927,6 +927,7 @@
     <Content Include="Views\Admin\BannedUsers.cshtml" />
     <Content Include="Views\Admin\TransactionsHistory.cshtml" />
     <Content Include="Views\Admin\TransactionDetails.cshtml" />
+    <Content Include="Views\Admin\AdminLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

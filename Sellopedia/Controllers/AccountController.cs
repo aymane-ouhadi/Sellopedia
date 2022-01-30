@@ -99,6 +99,49 @@ namespace Sellopedia.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    // check if login is from admin login
+                    if(Request.UrlReferrer.AbsolutePath == "/Admin/AdminLogin")
+                    {
+                        // get the logged in user & check if has admin roles
+                        var user = UserManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                        if (user != null)
+                        {
+                            foreach(var role in user.Roles)
+                            {
+                                // if the user has role of 'Admin' or 'SuperAdmin' Redirect them to tha admin dashboard
+                                if(role.RoleId == "1" || role.RoleId == "2")
+                                {
+                                    return RedirectToAction("Index", "Admin");
+                                }
+                            }
+                            // else: the user has no role of the above, redirect them to login of admin page
+                            // since the user exists and login was successful --> log them off first
+                            // pass returnUrl param to redirect to admin page
+                            return LogOff("AdminLogin");
+                            //in the LogOff action redirect them to admin login
+                        }
+                    }
+                    else
+                    {
+                        // if the user is admin but trying to login from normal users page
+                        // get the logged in user & check if has admin roles
+                        var user = UserManager.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+                        if (user != null)
+                        {
+                            foreach (var role in user.Roles)
+                            {
+                                // if the user has role of 'Admin' or 'SuperAdmin' Redirect them to the normal users login
+                                if (role.RoleId == "1" || role.RoleId == "2")
+                                {
+                                    // log them off & redirect them to normal users page
+                                    // pass null param to redirect to normal users page
+                                    return LogOff("ClientLogin");
+                                }
+                            }
+                        }
+
+                    }
+                    // when attepting to login from normal login
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -106,6 +149,13 @@ namespace Sellopedia.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
+                    // in case login failure
+                    // check if login from admin page
+                    if (Request.UrlReferrer.AbsolutePath == "/Admin/AdminLogin")
+                    {
+                        return RedirectToAction("AdminLogin", "Admin", new { error = "Invalid login attempt" });
+                    }
+                    // else return normal user page
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
@@ -236,6 +286,9 @@ namespace Sellopedia.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // assign the role of client to newly registered users
+                    var addUserToRole = UserManager.AddToRole(user.Id, "Client");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -479,10 +532,24 @@ namespace Sellopedia.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public ActionResult LogOff(string returnUrl)
         {
+            // sign out
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+
+            if (returnUrl == "AdminLogin")
+            {
+                // return admin login page for admins
+                return RedirectToAction("AdminLogin", "Admin", new { src = returnUrl });
+            }
+            else if (returnUrl == "ClientLogin")
+            {
+                // return normal users login page
+                return RedirectToAction("Login", "Account");
+            }
+
+            // return normal home page for normal users
+            return RedirectToAction("Index", "Home", new { src = returnUrl });
         }
 
         //
