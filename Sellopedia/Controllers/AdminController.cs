@@ -5,6 +5,8 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using static Sellopedia.Models.EnumerationsClass;
 
 namespace Sellopedia.Controllers
 {
@@ -15,10 +17,68 @@ namespace Sellopedia.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
+        public ActionResult AdminLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdminLogin(LoginViewModel model)
+        {
+            if(!ModelState.IsValid)
+            {
+                return Json(new {x = "not working", y = ModelState.Values.ElementAt(0).Errors.ElementAt(0).ErrorMessage }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { x = "working", y = ModelState.Values.ElementAt(0).Value.RawValue, c = ModelState.Values.ElementAt(1).Value.RawValue }, JsonRequestBehavior.AllowGet);
+            }
+            return View();
+        }
+
         // GET: Admin
         public ActionResult Index()
         {
             return View();
+        }
+
+        public JsonResult Stats()
+        {
+            // -- all important variables from the database 
+            var users = db.Users.ToList();
+            var products = db.Products.ToList();
+            var orders = db.Orders.ToList();
+            var carts = db.Carts.ToList();
+            var categories = db.Categories.ToList();
+
+            //-- Users
+            var users_count = users.Count();
+            var users_particular = users.Where(u => u.AccountType == AccountType.Particular).Count();
+            var users_organisation = users.Where(u => u.AccountType == AccountType.Organisation).Count();
+
+            // products
+            var products_count = products.Count();
+            var products_on_sale = products.Where(p => p.DiscountPrice != null).Count();
+            var products_ordered = products.Where(p => p.Orders.Count() > 0).Count();
+
+            // category / product
+            var categories_name = categories.Select(c => c.Name).ToArray();
+            var products_category = db.Categories.Select(c => new { c.Name, c.Products.Count }).ToList();
+
+            // -- result json
+            var result = new {
+                users_count,
+                users_particular,
+                users_organisation,
+                products_count,
+                products_on_sale,
+                products_ordered,
+                products_category,
+            };
+
+
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

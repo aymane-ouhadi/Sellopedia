@@ -20,6 +20,7 @@
   --gray: #6c757d;
   --gray-dark: #343a40;
   --primary: #3167eb;
+  --primary-hover: #316fff;
   --secondary: #EDF1FF;
   --success: #28a745;
   --info: #17a2b8;
@@ -158,8 +159,8 @@ a {
 }
 
 a:hover {
-  color: #ba6a62;
-  text-decoration: underline;
+    color: var(--primary-hover);
+    text-decoration: underline;
 }
 
 a:not([href]):not([class]) {
@@ -2371,14 +2372,14 @@ fieldset:disabled a.btn {
 }
 
 .btn-primary:hover {
-  color: #fff;
-  background-color: #c5837c;
-  border-color: #BBDEFB;
+    color: #fff;
+    background-color: var(--primary-hover);
+    border-color: #BBDEFB;
 }
 
 .btn-primary:focus, .btn-primary.focus {
   color: #fff;
-  background-color: #c5837c;
+  background-color: var(--primary-hover);
   border-color: #BBDEFB;
   box-shadow: 0 0 0 0.2rem rgba(183, 138, 135, 0.5);
 }
