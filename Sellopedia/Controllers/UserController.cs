@@ -19,6 +19,7 @@ namespace Sellopedia.Controllers
         private ApplicationUser user = null;
 
         //--------- User Profile -------------//
+
         // GET: User/EditProfile
         [Authorize]
         public ActionResult EditProfile()
@@ -33,20 +34,70 @@ namespace Sellopedia.Controllers
         }
 
         // POST: User/EditProfile
+        [Authorize]
         [HttpPost]
-        public ActionResult EditProfile(ApplicationUser model)
+        public ActionResult EditProfile(ApplicationUser model, HttpPostedFileBase ProfileImageFile)
         {
-            if(!ModelState.IsValid)
+            
+            if (ModelState.IsValid)
             {
-                return View(model);
+                ApplicationUser user = model;
+
+                //ProfileImage changing
+                if (ProfileImageFile != null)
+                {
+                    //setting up the file name ([date]_[filename].[extension])
+                    string imagepath = null;
+                    string filename = null;
+                    filename = Path.GetFileNameWithoutExtension(ProfileImageFile.FileName);
+                    string fileextension = Path.GetExtension(ProfileImageFile.FileName);
+                    filename = DateTime.Now.ToString("yyyymmdd") + "_" + filename.Trim() + fileextension;
+
+                    //defining the upload path, this will return : [(projectpath)/(profileimagespath)]
+                    //configurationmanager.appsettings["profileimagespath"] : the path to the profile images (you'll find it in web.config : <add key="profileimagespath" value="storage/profileimages"/>)
+                    //string uploadpath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationManager.AppSettings["ProfileImagesPath"]);
+                    string uploadpath = Server.MapPath($"~/{ConfigurationManager.AppSettings["ProfileImagesPath"]}");
+
+                    imagepath = Path.Combine(uploadpath, filename);
+
+                    ProfileImageFile.SaveAs(imagepath);
+                    user.ProfileImage = imagepath;
+                }
+
+                // update user in db
+                db.Users.AddOrUpdate(user);
+                db.SaveChanges();
+
+                return RedirectToAction("MyProducts");
             }
 
-            // update user in db
-            ApplicationUser user = model;
-            db.Users.AddOrUpdate(user);
-            db.SaveChanges();
-
             return RedirectToAction("EditProfile");
+        }
+
+        // GET: User/DeclareProblem
+        [Authorize]
+        public ActionResult Contact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contact(MessageViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Message message = new Message()
+                {
+                    Subject = model.Subject,
+                    Content = model.Content,
+                    UserId = User.Identity.GetUserId()
+                };
+
+                db.Messages.Add(message);
+                db.SaveChanges();
+            }
+
+            return View(model);
         }
 
 

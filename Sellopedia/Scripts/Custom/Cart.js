@@ -26,7 +26,7 @@ $(document).ready(function () {
 const CartItem = (cartItem) => {
     return (
         `<tr>
-            <td class="align-middle"><img src="${cartItem.CurrentProduct.ProductImage}" alt="${cartItem.CurrentProduct.ProductName}" style="width: 50px;">${cartItem.CurrentProduct.ProductName}</td>
+            <td class="align-middle"><img src="${cartItem.CurrentProduct.ProductImage}" alt="${cartItem.CurrentProduct.ProductName}" style="width: 50px; margin-right: 2rem;">${cartItem.CurrentProduct.ProductName.substring(0, 15)}...</td>
             <td class="align-middle">${cartItem.CurrentProduct.ProductPrice}  DH</td>
             <td class="align-middle">
                 <div class="input-group quantity mx-auto" style="width: 100px;">
@@ -107,7 +107,7 @@ const handleRemove = (product_id) => {
 const CheckoutItem = (checkoutItem) => {
     return (
         `<div class="d-flex justify-content-between">
-            <p>${checkoutItem.CurrentProduct.ProductName} | ${checkoutItem.Quantity}</p>
+            <p>${checkoutItem.CurrentProduct.ProductName.substring(0, 25)} ... | ${checkoutItem.Quantity}</p>
             <p>${checkoutItem.OrderPrice} DH</p>
         </div>`
     )

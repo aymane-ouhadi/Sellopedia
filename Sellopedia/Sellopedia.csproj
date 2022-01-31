@@ -262,6 +262,14 @@
     <Compile Include="Migrations\202201251802531_Added PK constraint to order.Designer.cs">
       <DependentUpon>202201251802531_Added PK constraint to order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201302036340_Added Message Model.cs" />
+    <Compile Include="Migrations\202201302036340_Added Message Model.Designer.cs">
+      <DependentUpon>202201302036340_Added Message Model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202201302047047_Added Message sending time.cs" />
+    <Compile Include="Migrations\202201302047047_Added Message sending time.Designer.cs">
+      <DependentUpon>202201302047047_Added Message sending time.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -269,6 +277,8 @@
     <Compile Include="Models\EnumerationsClass.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductImage.cs" />
@@ -276,6 +286,11 @@
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Upload.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ResMessage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResMessage.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ResProduct.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -928,6 +943,7 @@
     <Content Include="Views\Admin\TransactionsHistory.cshtml" />
     <Content Include="Views\Admin\TransactionDetails.cshtml" />
     <Content Include="Views\Admin\AdminLogin.cshtml" />
+    <Content Include="Views\User\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1010,6 +1026,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201251802531_Added PK constraint to order.resx">
       <DependentUpon>202201251802531_Added PK constraint to order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201302036340_Added Message Model.resx">
+      <DependentUpon>202201302036340_Added Message Model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201302047047_Added Message sending time.resx">
+      <DependentUpon>202201302047047_Added Message sending time.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResMessage.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResMessage.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ResProduct.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
