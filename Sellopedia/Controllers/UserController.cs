@@ -61,7 +61,7 @@ namespace Sellopedia.Controllers
                     imagepath = Path.Combine(uploadpath, filename);
 
                     ProfileImageFile.SaveAs(imagepath);
-                    user.ProfileImage = imagepath;
+                    user.ProfileImage = Path.Combine("/", ConfigurationManager.AppSettings["ProfileImagesPath"], filename);
                 }
 
                 // update user in db
