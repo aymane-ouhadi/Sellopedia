@@ -7,7 +7,7 @@
 
 
 <!-- ============================ NEW PAGE ================================= -->
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditProfile", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -16,13 +16,15 @@
             <h4 class="card-title mb-4">Profile</h4>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
-            <form>
+            @*<form action="@Url.Action("EditProfile")" method="post" enctype="multipart/form-data">*@
                 <div class="d-flex flex-column align-items-md-start">
                     <div class="form-group d-flex flex-column align-items-end">
-                        <img src="@Model.ProfileImage.ToString()" id="profile_image" width="85" height="80" class="img-sm rounded-circle border">
+                        <img src="@Model.ProfileImage" id="profile_image" width="85" height="80" class="img-sm rounded-circle border">
                         <div class="btn position-relative bg-primary text-white rounded-circle" style="bottom: 20px;" id="fancy_upload"><i class="fa fa-edit"></i></div>
-                        @Html.TextBoxFor(model => model.ProfileImage, new { @class = "form-control d-none", type = "file", id = "basic_upload" })
-                        @Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })
+                        <input type="file" id="basic_upload" class="form-control d-none" name="ProfileImageFile" />
+                        @*@Html.TextBoxFor(model => model.ProfileImage, new { @class = "form-control", type = "file", id = "basic_upload" })*@
+                        @*@Html.EditorFor(model => model.ProfileImage, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @*@Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })*@
                     </div>
                 </div>
 
@@ -157,7 +159,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-block">Save info</button>
-            </form>
+            @*</form>*@
         </div> <!-- card-body.// -->
     </div> <!-- card .// -->
 

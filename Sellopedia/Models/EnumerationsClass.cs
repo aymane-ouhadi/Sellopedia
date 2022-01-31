@@ -18,5 +18,11 @@ namespace Sellopedia.Models
             Male,
             Female
         }
+
+        public enum MessageState
+        {
+            Pending,
+            Seen
+        }
     }
 }

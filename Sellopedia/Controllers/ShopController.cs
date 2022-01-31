@@ -45,6 +45,10 @@ namespace Sellopedia.Controllers
             }
 
             //products = db.Products.ToList();
+            //if (User.Identity.GetUserId() != null)
+            //{
+            //    return View(products.Where(p => p.UserId != User.Identity.GetUserId()).ToList());
+            //}
             return View(products.ToList());
         }
 
