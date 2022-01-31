@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Sellopedia.Models.Message>
+
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
+    Page.Title = "Messages";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="table-responsive">
+                <table class="table text-nowrap">
+                    <tbody>
+                        @foreach (var cart in Model)
+                        {
+                            <tr>
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div>
+                                            <img src="@cart.User.ProfileImage" class="img-sm rounded-circle border" style="object-fit: contain; width: 3rem; height: 3rem;" />
+                                        </div>
+                                        <div style="margin-left: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: start;">
+                                            @if (cart.Subject != null)
+                                            {
+                                                <a href="@Url.Action("MessageDetails", new { Id = cart.Id })" style="margin-bottom: 0; font-size: .9rem; color: #1884b0; font-weight: bold; ">@cart.Subject</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("MessageDetails", new { Id = cart.Id })" style="margin-bottom: 0; font-size: .9rem; color: #1884b0; font-weight: bold; ">(no subject)</a>
+                                            }
+                                            @if (cart.Content.Length > 90)
+                                            {
+                                                <p style="margin-bottom: 0; font-size: .9rem;">
+                                                    <span style="color: #222; font-weight: bold;">@cart.User.FirstName @cart.User.LastName - </span>
+                                                    @if (cart.MessageState == Sellopedia.Models.EnumerationsClass.MessageState.Pending)
+                                                    {
+                                                        <span style="font-weight: bold;">@cart.Content.Substring(0, 90) ...</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@cart.Content.Substring(0, 90) ...</span>
+                                                    }
+                                                </p>
+                                            }
+                                            else
+                                            {
+                                                <p style="margin-bottom: 0; font-size: .9rem;">
+                                                    <span>@cart.User.FirstName @cart.User.LastName - </span>
+                                                    @cart.Content.Substring(0, 90)
+                                                </p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div style="margin-left: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: end;">
+                                        <p style="margin-bottom: 0; font-size: .9rem;">@cart.SendingTime.ToString("MMMM dd")</p>
+                                        <p style="margin-bottom: 0; font-size: .9rem;">@cart.SendingTime.ToString("h:mm tt")</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

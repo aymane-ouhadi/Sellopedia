@@ -200,6 +200,8 @@ namespace Sellopedia.Controllers
             return RedirectToAction("Users");
         }
 
+        //--------------------------------------------- Transactions
+
         public ActionResult TransactionsHistory()
         {
             List<Cart> carts = db.Carts.ToList();
@@ -215,5 +217,34 @@ namespace Sellopedia.Controllers
             List<Order> orders = db.Orders.Where(p => p.CartId == Id).ToList();
             return View(orders);
         }
+
+        //--------------------------------------------- Messages
+        public ActionResult Messages()
+        {
+            List<Message> messages = db.Messages.ToList();
+
+            foreach (Message message in messages)
+            {
+                message.User = db.Users.Find(message.UserId);
+            }
+
+            return View(messages);
+        }
+
+        public ActionResult MessageDetails(Guid Id)
+        {
+            Message message = db.Messages.Find(Id);
+
+            if (message.MessageState == MessageState.Pending)
+            {
+                message.MessageState = MessageState.Seen;
+                db.SaveChanges();
+            }
+
+            message.User = db.Users.Find(message.UserId);
+
+            return View(message);
+        }
+
     }
 }

@@ -68,7 +68,7 @@ namespace Sellopedia.Controllers
                 db.Users.AddOrUpdate(user);
                 db.SaveChanges();
 
-                return RedirectToAction("MyProducts");
+                return View(user);
             }
 
             return RedirectToAction("EditProfile");
