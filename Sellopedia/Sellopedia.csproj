@@ -869,9 +869,11 @@
     <Content Include="Scripts\Custom\AdvancedSearchAdmin.js" />
     <Content Include="Scripts\Custom\AutoComplete.js" />
     <Content Include="Scripts\Custom\Cart.js" />
+    <Content Include="Scripts\Custom\Categories.js" />
     <Content Include="Scripts\Custom\EditProfile.js" />
     <Content Include="Scripts\Custom\PriceFilter.js" />
     <Content Include="Scripts\Custom\StarsRating.js" />
+    <Content Include="Scripts\Custom\Statistics.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -946,6 +948,7 @@
     <Content Include="Views\User\Contact.cshtml" />
     <Content Include="Views\Admin\Messages.cshtml" />
     <Content Include="Views\Admin\MessageDetails.cshtml" />
+    <Content Include="Views\Admin\CreateAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

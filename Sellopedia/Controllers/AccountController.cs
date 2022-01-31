@@ -90,7 +90,11 @@ namespace Sellopedia.Controllers
                 // we query the db for the username that belongs to the current organisations email
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
-                    model.Email = db.Users.Where(user => user.Email == model.Email).FirstOrDefault().UserName;
+                    var user_org = db.Users.Where(user => user.Email == model.Email).FirstOrDefault();
+                    if (user_org != null) 
+                    {
+                        model.Email = user_org.UserName;
+                    }
                 }
 
                 result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
