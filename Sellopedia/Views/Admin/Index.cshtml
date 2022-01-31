@@ -6,14 +6,25 @@
     Page.Title = "Index";
 }
 
-@*<h2>Index</h2>
-    <h3>Testing the new layout of the Admin Template "Ample Admin"</h3>*@
+@section head
+{
+    @* bootstrap icons for alerts *@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+}
 
+@* Show toast if error msg *@
+@if (TempData["role_error"] != null)
+{
+    <!-- Error Alert -->
+    <div class="alert alert-danger alert-dismissible d-flex align-items-center fade show">
+        <i class="bi-exclamation-octagon-fill"></i>
+        <strong class="mx-2">Error!</strong> @TempData["role_error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+@* Check the stats data  *@
 <a href="@Url.Action("Stats", "Admin")">Stats</a>
-
-@*<div class="container bg-white">
-        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
-    </div>*@
 
 <!-- ============================================================== -->
 <!-- Three charts -->
@@ -29,7 +40,7 @@
                                 style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                     </div>
                 </li>
-                <li class="ms-auto"><span id="totalClients" class="counter text-success">659</span></li>
+                <li class="ms-auto"><span id="totalClients" class="counter text-success border-top border-success" style="border-radius: 50%; padding:2px">659</span></li>
             </ul>
         </div>
     </div>
@@ -43,7 +54,7 @@
                                 style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
                     </div>
                 </li>
-                <li class="ms-auto"><span id="totalAdmins" class="counter text-purple">869</span></li>
+                <li class="ms-auto"><span id="totalAdmins" class="counter text-purple border-top border-purple" style="border-radius: 50%; padding:8px">869</span></li>
             </ul>
         </div>
     </div>
@@ -58,21 +69,21 @@
                     </div>
                 </li>
                 <li class="ms-auto">
-                    <span id="totalProducts" class="counter text-info">911</span>
+                    <span id="totalProducts" class="counter text-info border-top border-info" style="border-radius: 50%; padding:8px">911</span>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 <!-- ============================================================== -->
-<!-- PRODUCTS YEARLY SALES -->
+<!---->
 <!-- ============================================================== -->
 <div class="row">
     <div class="col-6">
         <div class="white-box">
-            <h3 class="box-title">Products By Categories</h3>
+            <h3 class="box-title">Users</h3>
             <div class="d-flex justify-content-center">
-                <canvas id="products_by_category" style="width:100%;max-width:700px"></canvas>
+                <canvas id="users" style="width:100%;max-width:700px"></canvas>
             </div>
         </div>
     </div>
@@ -87,109 +98,26 @@
 </div>
 <!-- ============================================================== -->
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="white-box">
-            <h3 class="box-title">Users</h3>
+            <h3 class="box-title">Products By Categories</h3>
             <div class="d-flex justify-content-center">
-                <canvas id="users" style="width:100%;max-width:700px"></canvas>
+                <canvas id="products_by_category" style="width:100%;max-width:700px"></canvas>
             </div>
         </div>
     </div>
 </div>
 <!-- ============================================================== -->
 
+
+
 @section scripts
 {
+    @* ChartJs ccdn *@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
 
-    <script>
-
-        var stats;
-
-        $.ajax({
-            async: false,
-            type: 'post',
-            url: '/Admin/Stats',
-            success: function (data) {
-                stats = data;
-            }
-        });
-
-        var admins = stats.admins
-        var users = stats.users
-        var products = stats.products
-        var category_products = stats.products_category
-
-        const chart_bar = (chartId, data, title) => {
-            var xValues = data.map(item => item.Name.split(' '))
-            var yValues = data.map(item => item.Count)
-            var barColors = "#2f323e";
-
-            new Chart(chartId, {
-                type: "bar",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                        backgroundColor: barColors,
-                        data: yValues
-                    }]
-                },
-                options: {
-                    legend: { display: false },
-                    title: {
-                        display: title ? true : false,
-                        text: title ?? ""
-                    }
-                }
-            });
-        }
-
-        const chart_donught = (chartId, data, title) => {
-            var xValues2 = Object.keys(data);
-            var yValues2 = Object.values(data);
-            var barColors2 = [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-                'rgb(255, 205, 86)',
-                "#b91d47",
-                "#00aba9",
-                "#2b5797",
-                "#e8c3b9",
-                "#1e7145"
-            ];
-
-            new Chart(chartId, {
-                type: "doughnut",
-                data: {
-                    labels: xValues2,
-                    datasets: [{
-                        backgroundColor: barColors2,
-                        data: yValues2
-                    }]
-                },
-                options: {
-                    title: {
-                        display: title ? true : false,
-                        text: title ?? ""
-                    }
-                }
-            });
-        }
-
-        const totals = () => {
-            $('#totalClients').text(Object.values(users).reduce((a, v) => a + v, 0))
-            $('#totalAdmins').text(admins)
-            $('#totalProducts').text(products.Products)
-        }
-
-        totals()
-
-        chart_bar("products_by_category", category_products)
-        chart_donught("products", products)
-        chart_donught("users", users)
-
-
-
+    @* custom js *@
+    <script src="~/Scripts/Custom/Statistics.js">
     </script>
 }

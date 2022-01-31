@@ -1,8 +1,12 @@
-﻿using Sellopedia.Models;
+﻿using Microsoft.AspNet.Identity.Owin;
+using Sellopedia.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -76,8 +80,9 @@ namespace Sellopedia.Controllers
             var users_count = users.Count();
             var users_particular = users.Where(u => u.AccountType == AccountType.Particular).Count();
             var users_organisation = users.Where(u => u.AccountType == AccountType.Organisation).Count();
-            var admins = db.Roles.Where(r => r.Name == "Admin" && r.Users.Count > 0).Count();
-            
+            var admins = db.Roles.Where(r => r.Name == "Admin").FirstOrDefault().Users.Count();
+            var superAdmins = db.Roles.Where(r => r.Name == "SuperAdmin").FirstOrDefault().Users.Count();
+
 
             // products
             var products_count = products.Count();
@@ -92,6 +97,7 @@ namespace Sellopedia.Controllers
             // -- result json
             var result = new {
                 admins = admins,
+                superAdmins,
                 users = new {
                     //Total = users_count,
                     Particular = users_particular,
@@ -257,19 +263,72 @@ namespace Sellopedia.Controllers
 
         // Add new Admin Accounts --------------- //
         [CustomAuthorization(Roles = "Admin")]
-        public ActionResult CreteAdmin()
-        {
-            return View();
-        }
-
-        [CustomAuthorization(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult CreteAdmin(string model)
+        public ActionResult CreateAdmin()
         {
             if (!User.IsInRole("SuperAdmin"))
             {
-                TempData["privelege_error"] = "Only SuperAdmin can add a new Admin Account.";
-                return View();
+                TempData["role_error"] = "Only SuperAdmin can add a new Admin Account.";
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [CustomAuthorization(Roles = "SuerAdmin")]
+        [HttpPost]
+        public async Task<ActionResult> CreteAdminAsync(ApplicationUser model, HttpPostedFileBase ProfileImageFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                // error mesage
+                TempData["AdminCreateError"] = "The current model is not a valid user";
+                return View(model);
+            }
+
+
+            ApplicationUser user = model;
+
+            //ProfileImage changing
+            if (ProfileImageFile != null)
+            {
+                //setting up the file name ([date]_[filename].[extension])
+                string imagepath = null;
+                string filename = null;
+                filename = Path.GetFileNameWithoutExtension(ProfileImageFile.FileName);
+                string fileextension = Path.GetExtension(ProfileImageFile.FileName);
+                filename = DateTime.Now.ToString("yyyymmdd") + "_" + filename.Trim() + fileextension;
+                string uploadpath = Server.MapPath($"~/{ConfigurationManager.AppSettings["ProfileImagesPath"]}");
+
+                imagepath = Path.Combine(uploadpath, filename);
+
+                ProfileImageFile.SaveAs(imagepath);
+                user.ProfileImage = Path.Combine("/", ConfigurationManager.AppSettings["ProfileImagesPath"], filename);
+            }
+
+            var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            // add new user
+            //db.Users.Add(user);
+            //db.SaveChanges();
+            var result = await UserManager.CreateAsync(user, "Password_1");
+            if (result.Succeeded)
+            {
+                // assign the user with a role of admin
+                var result2 = await UserManager.AddToRoleAsync(user.Id, "Admin");
+                if(result2.Succeeded)
+                {
+                    // success message | user created & role assigned
+                    TempData["AdminCreateSuccess"] = $"Admin '${user.FirstName} ${user.LastName}' has been created successfully.";
+                }
+                else
+                {
+                    // error | role assign failed
+                    TempData["AdminRoleError"] = "Failed to assign Admin role to the user";
+                }
+            }
+            else
+            {
+                // error | user creation failed
+                TempData["AdminUserError"] = "Failed to create new user";
             }
 
             return View();
