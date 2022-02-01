@@ -35,7 +35,8 @@ namespace Sellopedia.Models
         public virtual ICollection<Review> Reviews { get; set; }
         //--- Cart 
         public virtual ICollection<Cart> Carts { get; set; }
-
+        //--- Message
+        public virtual ICollection<Message> Messages { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -77,5 +78,7 @@ namespace Sellopedia.Models
         public System.Data.Entity.DbSet<Sellopedia.Models.ProductImage> ProductImages { get; set; }
 
         public System.Data.Entity.DbSet<Sellopedia.Models.Category> Categories { get; set; }
+
+        public System.Data.Entity.DbSet<Sellopedia.Models.Message> Messages { get; set; }
     }
 }

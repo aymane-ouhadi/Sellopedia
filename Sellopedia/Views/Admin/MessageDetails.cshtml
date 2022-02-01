@@ -1,0 +1,38 @@
+﻿@model Sellopedia.Models.Message
+
+@{
+    ViewBag.Title = $"Message Details - {Model.Id}";
+    Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
+    Page.Title = "Message Details";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="white-box">
+            <div class="d-flex">
+                <div>
+                    <img src="@Model.User.ProfileImage" class="img-sm rounded-circle border" style="object-fit: contain; width: 3rem; height: 3rem;" />
+                </div>
+                <div class="w-100 px-3">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-column align-items-start">
+                            <p style="margin-bottom: 0; font-weight: bold;">@Model.User.FirstName @Model.User.LastName</p>
+                            <p style="margin-bottom: 0;">@Model.User.Email</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div style="margin-right: 1rem;">@Model.SendingTime.ToString("dddd, dd MMMM yyyy"), @Model.SendingTime.ToString("hh:mm tt")</div>
+                            <i class="fas fa-reply" style="color: #313131;"></i>
+                        </div>
+                    </div>
+                    <div class="my-4">
+                        <h4 style="font-weight: bold;">Subject : @Model.Subject</h4>
+                    </div>
+                    <div class="my-4">
+                        <p>@Model.Content</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

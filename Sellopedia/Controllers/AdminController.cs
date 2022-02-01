@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Sellopedia.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -11,38 +15,59 @@ using static Sellopedia.Models.EnumerationsClass;
 
 namespace Sellopedia.Controllers
 {
-    //--------------------------------------------- CRUD Categories
-    //[Authorize(Roles = "Admin")]
+
+    // overwrite the default OnAuthorization 'loginPage' attr
+    // to redirect to the admin login page instead of normal users login page
+    public class CustomAuthorization : AuthorizeAttribute
+    {
+        public string LoginPage { get; set; } = "/Admin/AdminLogin";
+
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                filterContext.HttpContext.Response.Redirect(LoginPage);
+            }
+            base.OnAuthorization(filterContext);
+        }
+    }
+
+
+    
     public class AdminController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationUser user = null;
 
+        [AllowAnonymous]
         public ActionResult AdminLogin()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AdminLogin(LoginViewModel model)
-        {
-            if(!ModelState.IsValid)
-            {
-                return Json(new {x = "not working", y = ModelState.Values.ElementAt(0).Errors.ElementAt(0).ErrorMessage }, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new { x = "working", y = ModelState.Values.ElementAt(0).Value.RawValue, c = ModelState.Values.ElementAt(1).Value.RawValue }, JsonRequestBehavior.AllowGet);
-            }
-            return View();
-        }
+        //[AllowAnonymous]
+        //[HttpPost]
+        //public ActionResult AdminLogin(LoginViewModel model)
+        //{
+        //    if(!ModelState.IsValid)
+        //    {
+        //        return Json(new {x = "not working", y = ModelState.Values.ElementAt(0).Errors.ElementAt(0).ErrorMessage }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    else
+        //    {
+        //        return Json(new { x = "working", y = ModelState.Values.ElementAt(0).Value.RawValue, c = ModelState.Values.ElementAt(1).Value.RawValue }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    return View();
+        //}
 
         // GET: Admin
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public JsonResult Stats()
         {
             // -- all important variables from the database 
@@ -56,11 +81,15 @@ namespace Sellopedia.Controllers
             var users_count = users.Count();
             var users_particular = users.Where(u => u.AccountType == AccountType.Particular).Count();
             var users_organisation = users.Where(u => u.AccountType == AccountType.Organisation).Count();
+            var admins = db.Roles.Where(r => r.Name == "Admin").FirstOrDefault().Users.Count();
+            var superAdmins = db.Roles.Where(r => r.Name == "SuperAdmin").FirstOrDefault().Users.Count();
+
 
             // products
             var products_count = products.Count();
             var products_on_sale = products.Where(p => p.DiscountPrice != null).Count();
-            var products_ordered = products.Where(p => p.Orders.Count() > 0).Count();
+            var products_ordered = db.Orders.Count();
+
 
             // category / product
             var categories_name = categories.Select(c => c.Name).ToArray();
@@ -68,12 +97,18 @@ namespace Sellopedia.Controllers
 
             // -- result json
             var result = new {
-                users_count,
-                users_particular,
-                users_organisation,
-                products_count,
-                products_on_sale,
-                products_ordered,
+                admins = admins,
+                superAdmins,
+                users = new {
+                    //Total = users_count,
+                    Particular = users_particular,
+                    Organisation = users_organisation,
+                },
+                products = new {
+                    Products = products_count,
+                    OnSale = products_on_sale,
+                    Orders = products_ordered,
+                },
                 products_category,
             };
 
@@ -82,12 +117,14 @@ namespace Sellopedia.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         [HttpGet]
         public ActionResult Categories()
         {
             return View(db.Categories.ToList());
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         [HttpPost]
         public ActionResult CreateCategory(string categoryName, string iconName)
         {
@@ -104,7 +141,7 @@ namespace Sellopedia.Controllers
             return RedirectToAction("Categories");
         }
 
-
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult EditCategory(int? id, string categoryName, string iconName)
         {
             Category model = db.Categories.Find(id);
@@ -125,7 +162,7 @@ namespace Sellopedia.Controllers
             return RedirectToAction("Categories");
         }
 
-
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult DeleteCategory(int? id)
         {
             Category model = db.Categories.Find(id);
@@ -144,11 +181,13 @@ namespace Sellopedia.Controllers
         }
 
         //--------------------------------------------- CRUD users
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult Users()
         {
             return View(db.Users.Where(m => m.IsValid == true).ToList());
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public JsonResult SearchUser(string search_text)
         {
             // firstname
@@ -174,11 +213,13 @@ namespace Sellopedia.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult BannedUsers()
         {
             return View(db.Users.Where(m => m.IsValid == false).ToList());
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult EditValidity(string id)
         {
             var user = db.Users.Find(id);
@@ -192,6 +233,7 @@ namespace Sellopedia.Controllers
             return RedirectToAction("Users");
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult EditWhiteListing(string id)
         {
             var user = db.Users.Find(id);
@@ -201,6 +243,7 @@ namespace Sellopedia.Controllers
             return RedirectToAction("Users");
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult TransactionsHistory()
         {
             List<Cart> carts = db.Carts.ToList();
@@ -211,10 +254,114 @@ namespace Sellopedia.Controllers
             return View(carts);
         }
 
+        [CustomAuthorization(Roles = "Admin, SuperAdmin")]
         public ActionResult TransactionDetails(int Id)
         {
             List<Order> orders = db.Orders.Where(p => p.CartId == Id).ToList();
             return View(orders);
+        }
+
+        //--------------------------------------------- Messages
+        public ActionResult Messages()
+        {
+            List<Message> messages = db.Messages.ToList();
+
+            foreach (Message message in messages)
+            {
+                message.User = db.Users.Find(message.UserId);
+            }
+
+            return View(messages);
+        }
+
+        public ActionResult MessageDetails(Guid Id)
+        {
+            Message message = db.Messages.Find(Id);
+
+            if (message.MessageState == MessageState.Pending)
+            {
+                message.MessageState = MessageState.Seen;
+                db.SaveChanges();
+            }
+
+            message.User = db.Users.Find(message.UserId);
+
+            return View(message);
+        }
+
+
+
+        // Add new Admin Accounts --------------- //
+        [CustomAuthorization(Roles = "Admin")]
+        public ActionResult CreateAdmin()
+        {
+            if (!User.IsInRole("SuperAdmin"))
+            {
+                TempData["role_error"] = "Only SuperAdmin can add a new Admin Account.";
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        [CustomAuthorization(Roles = "SuerAdmin")]
+        [HttpPost]
+        public async Task<ActionResult> CreteAdminAsync(ApplicationUser model, HttpPostedFileBase ProfileImageFile)
+        {
+            if (!ModelState.IsValid)
+            {
+                // error mesage
+                TempData["AdminCreateError"] = "The current model is not a valid user";
+                return View(model);
+            }
+
+
+            ApplicationUser user = model;
+
+            //ProfileImage changing
+            if (ProfileImageFile != null)
+            {
+                //setting up the file name ([date]_[filename].[extension])
+                string imagepath = null;
+                string filename = null;
+                filename = Path.GetFileNameWithoutExtension(ProfileImageFile.FileName);
+                string fileextension = Path.GetExtension(ProfileImageFile.FileName);
+                filename = DateTime.Now.ToString("yyyymmdd") + "_" + filename.Trim() + fileextension;
+                string uploadpath = Server.MapPath($"~/{ConfigurationManager.AppSettings["ProfileImagesPath"]}");
+
+                imagepath = Path.Combine(uploadpath, filename);
+
+                ProfileImageFile.SaveAs(imagepath);
+                user.ProfileImage = Path.Combine("/", ConfigurationManager.AppSettings["ProfileImagesPath"], filename);
+            }
+
+            var UserManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+
+            // add new user
+            //db.Users.Add(user);
+            //db.SaveChanges();
+            var result = await UserManager.CreateAsync(user, "Password_1");
+            if (result.Succeeded)
+            {
+                // assign the user with a role of admin
+                var result2 = await UserManager.AddToRoleAsync(user.Id, "Admin");
+                if(result2.Succeeded)
+                {
+                    // success message | user created & role assigned
+                    TempData["AdminCreateSuccess"] = $"Admin '${user.FirstName} ${user.LastName}' has been created successfully.";
+                }
+                else
+                {
+                    // error | role assign failed
+                    TempData["AdminRoleError"] = "Failed to assign Admin role to the user";
+                }
+            }
+            else
+            {
+                // error | user creation failed
+                TempData["AdminUserError"] = "Failed to create new user";
+            }
+
+            return View();
         }
 
 

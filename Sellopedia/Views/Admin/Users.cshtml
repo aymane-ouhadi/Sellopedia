@@ -104,42 +104,49 @@
                     <tbody>
                         @foreach (var user in Model)
                         {
-                            <tr data-name="@user.FirstName @user.LastName @user.UserName" data-gender="@user.Gender" 
-                                data-country="@user.Country" data-city="@user.City" data-accounttype="@user.AccountType"
-                                data-whitelist="@user.IsWhiteListed">
-                                <td>
-                                    <img src="@user.ProfileImage" style="border-radius:50%; width: 3rem; object-fit: contain;" />
-                                </td>
-                                @if (user.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
-                                {
-                                    <td>@user.FirstName @user.LastName</td>
-                                }
-                                else
-                                {
-                                    <td>@user.UserName</td>
-                                }
+                        <tr data-name="@user.FirstName @user.LastName @user.UserName" data-gender="@user.Gender"
+                            data-country="@user.Country" data-city="@user.City" data-accounttype="@user.AccountType"
+                            data-whitelist="@user.IsWhiteListed">
+                            <td>
+                                <img src="@user.ProfileImage" style="border-radius: 50%; width: 3rem; height: 3rem; object-fit: contain;" />
+                            </td>
+                            @if (user.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
+                            {
+                                <td>@user.FirstName @user.LastName</td>
+                            }
+                            else
+                            {
+                                <td>@user.UserName</td>
+                            }
+                            @if (user.AccountType == Sellopedia.Models.EnumerationsClass.AccountType.Particular)
+                            {
                                 <td>@user.Gender</td>
-                                <td class="country">@user.Country</td>
-                                <td class="city">@user.City</td>
-                                <td>@user.AccountType</td>
-                                <td>
-                                    <a href="@Url.Action("EditValidity", new { id = user.Id })">
-                                        <i class="fas fa-ban text-danger"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("EditWhiteListing", new { id = user.Id })">
-                                        @if (!user.IsWhiteListed)
-                                        {
-                                            <i class="far fa-heart text-success"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="fas fa-heart text-success"></i>
-                                        }
-                                    </a>
-                                </td>
-                            </tr>
+                            }
+                            else
+                            {
+                                <td> - </td>
+                            }
+                            <td class="country">@user.Country</td>
+                            <td class="city">@user.City</td>
+                            <td>@user.AccountType</td>
+                            <td>
+                                <a href="@Url.Action("EditValidity", new { id = user.Id })">
+                                    <i class="fas fa-ban text-danger"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditWhiteListing", new { id = user.Id })">
+                                    @if (!user.IsWhiteListed)
+                                    {
+                                        <i class="far fa-heart text-success"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fas fa-heart text-success"></i>
+                                    }
+                                </a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
                 </table>
