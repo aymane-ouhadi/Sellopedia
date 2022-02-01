@@ -932,6 +932,7 @@
     <Content Include="Views\Admin\TransactionsHistory.cshtml" />
     <Content Include="Views\Admin\TransactionDetails.cshtml" />
     <Content Include="Views\Admin\AdminLogin.cshtml" />
+    <Content Include="Views\Admin\ProfileDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

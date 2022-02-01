@@ -1,4 +1,5 @@
-﻿using Sellopedia.Models;
+﻿using Microsoft.AspNet.Identity;
+using Sellopedia.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -214,6 +215,18 @@ namespace Sellopedia.Controllers
         {
             List<Order> orders = db.Orders.Where(p => p.CartId == Id).ToList();
             return View(orders);
+        }
+
+
+        //------------- Profile Details Action --------------//
+
+        public ActionResult ProfileDetails()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.Find(currentUserId);
+
+
+            return View(user);
         }
     }
 }

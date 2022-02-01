@@ -1,0 +1,141 @@
+﻿@model Sellopedia.Models.ApplicationUser
+
+@{
+    Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
+    ViewBag.Title = "ProfileDetails";
+}
+
+@*@Html.LabelFor(model => model.FirstName)
+    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })*@
+
+
+<!-- Page wrapper  -->
+<!-- ============================================================== -->
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb bg-white">
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="page-title">Profile page</h4>
+            </div>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-12">
+                <div class="white-box">
+                    <div class="user-bg">
+                        <img width="100%" alt="user" src="@Model.ProfileImage.ToString()">
+                        <div class="overlay-box">
+                            <div class="user-content">
+                                <a href="javascript:void(0)">
+                                    <img src="@Model.ProfileImage.ToString()"
+                                         class="thumb-lg img-circle" alt="img">
+                                </a>
+                                <h4 class="text-white mt-2">@Model.FirstName @Model.LastName</h4>
+                                <h5 class="text-white mt-2">@Model.Email</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-btm-box mt-5 d-md-flex">
+                        <div class="col-md-10 col-sm-4 text-center">
+                            <h3>@Model.PhoneNumber</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="form-horizontal form-material">
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.FirstName)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.LastName)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.Email)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.PhoneNumber)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.Country)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.City)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                @Html.LabelFor(model => model.Gender)
+                                <div class="col-md-12 border-bottom p-0">
+                                    @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control p-0 border-0" } })
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success">Update Profile</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+        <!-- Row -->
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+</div>

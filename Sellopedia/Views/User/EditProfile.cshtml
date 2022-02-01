@@ -21,7 +21,7 @@
                     <div class="form-group d-flex flex-column align-items-end">
                         <img src="@Model.ProfileImage.ToString()" id="profile_image" width="85" height="80" class="img-sm rounded-circle border">
                         <div class="btn position-relative bg-primary text-white rounded-circle" style="bottom: 20px;" id="fancy_upload"><i class="fa fa-edit"></i></div>
-                        @Html.TextBoxFor(model => model.ProfileImage, new { @class = "form-control d-none", type = "file", id = "basic_upload" })
+                        @Html.TextBoxFor(model => model.ProfileImage, new { @class = "form-control", type = "file", id = "basic_upload" })
                         @Html.ValidationMessageFor(model => model.ProfileImage, "", new { @class = "text-danger" })
                     </div>
                 </div>
