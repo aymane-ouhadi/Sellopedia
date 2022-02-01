@@ -456,6 +456,10 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\style.min.css" />
     <Content Include="Content\css\ui.css" />
+    <Content Include="Content\Home Images\Electronics.jpg" />
+    <Content Include="Content\Home Images\Fashion.jpg" />
+    <Content Include="Content\Home Images\Home.jpg" />
+    <Content Include="Content\Home Images\Payement.jpg" />
     <Content Include="Content\icons\avatar1.jpg" />
     <Content Include="Content\icons\avatar2.jpg" />
     <Content Include="Content\icons\avatar3.jpg" />
@@ -949,6 +953,7 @@
     <Content Include="Views\Admin\Messages.cshtml" />
     <Content Include="Views\Admin\MessageDetails.cshtml" />
     <Content Include="Views\Admin\CreateAdmin.cshtml" />
+    <Content Include="Views\Admin\ProfileDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

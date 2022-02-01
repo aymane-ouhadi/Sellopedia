@@ -43,6 +43,8 @@ namespace Sellopedia.Controllers
             {
                 ApplicationUser user = model;
 
+                user.ProfileImage = db.Users.Find(model.Id).ProfileImage;
+
                 //ProfileImage changing
                 if (ProfileImageFile != null)
                 {

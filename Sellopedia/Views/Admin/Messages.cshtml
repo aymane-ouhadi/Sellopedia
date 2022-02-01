@@ -5,6 +5,16 @@
     Layout = "~/Views/Shared/AdminTemplate/_Layout_Admin.cshtml";
     Page.Title = "Messages";
 }
+<style>
+    td {
+        transition: all .2s linear;
+    }
+
+        td:hover {
+            box-shadow: 2px 8px 45px rgba(0, 0, 0, .15);
+            transform: translate3D(0, -2px, 0);
+        }
+</style>
 
 <div class="row">
     <div class="col-sm-12">
@@ -46,8 +56,15 @@
                                             else
                                             {
                                                 <p style="margin-bottom: 0; font-size: .9rem;">
-                                                    <span>@cart.User.FirstName @cart.User.LastName - </span>
-                                                    @cart.Content.Substring(0, 90)
+                                                    <span style="color: #222; font-weight: bold;">@cart.User.FirstName @cart.User.LastName - </span>
+                                                    @if (cart.MessageState == Sellopedia.Models.EnumerationsClass.MessageState.Pending)
+                                                    {
+                                                        <span style="font-weight: bold;">@cart.Content</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@cart.Content</span>
+                                                    }
                                                 </p>
                                             }
                                         </div>

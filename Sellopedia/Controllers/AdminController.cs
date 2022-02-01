@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Sellopedia.Models;
 using System;
 using System.Collections.Generic;
@@ -361,6 +362,18 @@ namespace Sellopedia.Controllers
             }
 
             return View();
+        }
+
+
+        //------------- Profile Details Action --------------//
+
+        public ActionResult ProfileDetails()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            user = db.Users.Find(currentUserId);
+
+
+            return View(user);
         }
     }
 }
