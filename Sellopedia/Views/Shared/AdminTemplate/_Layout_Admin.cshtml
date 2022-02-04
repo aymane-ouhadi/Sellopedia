@@ -86,9 +86,16 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li>
+                            @using Microsoft.AspNet.Identity
+                            @{ 
+                                // get the current logged in user
+                                
+                                var currentUserId = User.Identity.GetUserId();
+                                var user = new Sellopedia.Models.ApplicationDbContext().Users.Find(currentUserId);
+                            }
                             <a class="profile-pic" href="#">
-                                <img src="~/Content/AdminTemplate/plugins/images/users/varun.jpg" alt="user-img" width="36"
-                                     class="img-circle"><span class="text-white font-medium">Steave</span>
+                                <img src="@user.ProfileImage" alt="user-img" width="36"
+                                     class="img-circle"><span class="text-white font-medium">@user.FirstName</span>
                             </a>
                         </li>
                         <!-- ============================================================== -->
@@ -112,7 +119,7 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Index", "Admin")"
                                aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
@@ -154,38 +161,10 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
-                               aria-expanded="false">
-                                <i class="fa fa-table" aria-hidden="true"></i>
-                                <span class="hide-menu">Basic Table</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="@Url.Action("Categories", "Admin")"
                                aria-expanded="false">
                                 <i class="fa fa-font" aria-hidden="true"></i>
                                 <span class="hide-menu">Categories</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
-                               aria-expanded="false">
-                                <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">Google Map</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
-                               aria-expanded="false">
-                                <i class="fa fa-columns" aria-hidden="true"></i>
-                                <span class="hide-menu">Blank Page</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#"
-                               aria-expanded="false">
-                                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                <span class="hide-menu">Error 404</span>
                             </a>
                         </li>
                         <li class="sidebar-item">

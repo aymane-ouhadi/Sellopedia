@@ -62,7 +62,7 @@
 <!-- ============================ New HOME PAGE COMPONENT ================================= -->
 <div class="row my-5 w-75 mx-auto">
     <div class="col-md-3">
-        <article class="card card-body">
+        <article class="card card-body h-100">
             <figure class="text-center">
                 <span class="rounded-circle icon-md bg-primary"><i class="fa fa-user white"></i></span>
                 <figcaption class="pt-4">
@@ -73,7 +73,7 @@
         </article> <!-- panel-lg.// -->
     </div><!-- col // -->
     <div class="col-md-3">
-        <article class="card card-body">
+        <article class="card card-body h-100">
             <figure class="text-center">
                 <span class="rounded-circle icon-md bg-danger"><i class="fa fa-truck white"></i></span>
                 <figcaption class="pt-4">
@@ -84,7 +84,7 @@
         </article> <!-- panel-lg.// -->
     </div> <!-- col // -->
     <div class="col-md-3">
-        <article class="card card-body">
+        <article class="card card-body h-100">
             <figure class="text-center">
                 <span class="rounded-circle icon-md bg-success"><i class="fa fa-money-bill-alt white"></i></span>
                 <figcaption class="pt-4">
@@ -95,7 +95,7 @@
         </article> <!-- panel-lg.// -->
     </div> <!-- col // -->
     <div class="col-md-3">
-        <article class="card card-body">
+        <article class="card card-body h-100">
             <figure class="text-center">
                 <span class="rounded-circle icon-md bg-dark"><i class="fa fa-lock white"></i></span>
                 <figcaption class="pt-4">
@@ -107,3 +107,13 @@
     </div> <!-- col // -->
 </div>
 <!-- ============================  New HOME PAGE COMPONENT END ================================= -->
+
+@section scripts {
+<script>
+    $('document').ready(function () {
+        var p = $('figcaption > p')
+        p
+    })
+</script>
+
+}
