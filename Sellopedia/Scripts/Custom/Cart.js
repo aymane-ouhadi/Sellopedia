@@ -133,5 +133,9 @@ const confirmOrder = () => {
     }))
     var total = orders.reduce((previous, current) => previous + current.OrderPrice, 0)
     console.log(total)
-    $.post("/Shop/ConfirmOrder", { Id: $("#Id").val(), Address: $("#Address").val(), Orders: orders, TotalPrice: total });
+    $.post("/Shop/ConfirmOrder", { Id: $("#Id").val(), Address: $("#Address").val(), Orders: orders, TotalPrice: total }, function (data) {
+        if (data.result == 'Redirect') {
+            window.location = data.url
+        }
+    });
 }

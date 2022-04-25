@@ -251,6 +251,12 @@ namespace Sellopedia.Controllers
             return RedirectToAction("MyProducts");
         }
 
+        //--------- Orders -------------//
+        // GET: Orders
+        public ActionResult MyOrders()
+        {
+            return View();
+        }
 
         //--------- Products -------------//
         // GET: Products/Details/5

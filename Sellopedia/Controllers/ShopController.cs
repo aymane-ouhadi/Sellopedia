@@ -120,7 +120,10 @@ namespace Sellopedia.Controllers
             }
 
 
-            return Redirect("Index");
+            return Json(new { 
+                result = "Redirect",
+                url = Url.Action("Index", "Shop")
+            });
         }
 
         [Authorize]
@@ -143,7 +146,7 @@ namespace Sellopedia.Controllers
             db.Reviews.Add(model);
             db.SaveChanges();
 
-            return Json(new { userId = model.UserId, productId = model.ProductId, score = model.Score, message = model.Message }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Product", new { id = model.ProductId });
         }
 
 
